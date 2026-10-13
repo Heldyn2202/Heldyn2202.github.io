@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- =====================================================
+       SEO META TAGS
+  ====================================================== -->
+  <title>Heldyn Diaz | DevOps & Infraestructura | Portafolio</title>
+  <meta name="description" content="Portafolio profesional de Heldyn Diaz – Especialista en Infraestructura, DevOps, Automatización y Desarrollo Web. Ingeniería en Informática." />
+  <meta name="keywords" content="DevOps, Infraestructura, n8n, Docker, Proxmox, Zabbix, Grafana, PHP, Automatización, Portafolio" />
+  <meta name="author" content="Heldyn Diaz" />
+  <meta property="og:title" content="Heldyn Diaz | DevOps & Infraestructura" />
+  <meta property="og:description" content="Especialista en Infraestructura, DevOps y Automatización." />
+  <meta property="og:type" content="website" />
+
+  <!-- =====================================================
+       GOOGLE FONTS
+  ====================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- =====================================================
+       TAILWIND CSS CDN
+  ====================================================== -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- =====================================================
+       FONT AWESOME 6 (iconos)
+  ====================================================== -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- =====================================================
+       AOS – Animate On Scroll
+  ====================================================== -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+  <!-- =====================================================
+       TAILWIND CONFIG EXTENDIDA
+  ====================================================== -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              300: '#48f8fb',
+              400: '#14e5ed',
+              500: '#00c8d4',
+              600: '#00a0ad',
+              700: '#077e8c',
+              800: '#0d6470',
+              900: '#0f535e',
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- =====================================================
+       ESTILOS PERSONALIZADOS
+  ====================================================== -->
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #020b10;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    /* ── Canvas de partículas (fondo fijo) ── */
+    #particles-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Todo el contenido sobre el canvas ── */
+    .layer { position: relative; z-index: 1; }
+
+    /* ── Scrollbar personalizada ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #020b10; }
+    ::-webkit-scrollbar-thumb { background: #00c8d4; border-radius: 4px; }
+
+    /* ── Glassmorphism base ── */
+    .glass {
+      background: rgba(255,255,255,0.035);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(0,200,212,0.13);
+      border-radius: 1rem;
+    }
+    .glass-strong {
+      background: rgba(0,200,212,0.06);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(0,200,212,0.22);
+      border-radius: 0.75rem;
+    }
+
+    /* ── Texto degradado ── */
+    .text-gradient {
+      background: linear-gradient(130deg, #00c8d4 0%, #48f8fb 55%, #90fffd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Botón primario ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.8rem 1.9rem;
+      border-radius: 0.55rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: #fff;
+      background: linear-gradient(135deg, #00c8d4 0%, #077e8c 100%);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg,transparent,rgba(255,255,255,0.13),transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+    .btn-primary:hover::after { transform: translateX(100%); }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,200,212,0.4);
+    }
+
+    /* ── Botón secundario (outline) ── */
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.8rem 1.9rem;
+      border-radius: 0.55rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: #00c8d4;
+      background: transparent;
+      border: 1.5px solid #00c8d4;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+    .btn-outline:hover {
+      background: rgba(0,200,212,0.1);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(0,200,212,0.18);
+    }
+
+    /* ── Navbar ── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(2,11,16,0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(0,200,212,0.14);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    }
+    .nav-link {
+      color: #94a3b8;
+      font-weight: 500;
+      font-size: 0.88rem;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.25s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: #00c8d4;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover { color: #00c8d4; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.active { color: #00c8d4; }
+    .nav-link.active::after { width: 100%; }
+
+    /* ── Menú móvil ── */
+    #mobile-menu {
+      display: none;
+      background: rgba(2,11,16,0.97);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-top: 1px solid rgba(0,200,212,0.12);
+    }
+    #mobile-menu.open { display: block; }
+
+    /* ── Hero ── */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7rem 1.5rem 4rem;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,200,212,0.09);
+      border: 1px solid rgba(0,200,212,0.28);
+      color: #00c8d4;
+      padding: 0.3rem 1rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 1.6rem;
+    }
+    .hero-dot {
+      width: 7px; height: 7px;
+      background: #00c8d4;
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.5; transform: scale(0.7); }
+    }
+    @keyframes float-y {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-9px); }
+    }
+    .float-anim { animation: float-y 3.5s ease-in-out infinite; }
+
+    /* ── Section común ── */
+    .section { padding: 5.5rem 1.5rem; }
+    .sec-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #00c8d4;
+      margin-bottom: 0.5rem;
+    }
+    .sec-title {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 800;
+    }
+    .sec-bar {
+      width: 52px; height: 3px;
+      background: linear-gradient(90deg, #00c8d4, transparent);
+      border-radius: 2px;
+      margin: 0.7rem auto 0.9rem;
+    }
+
+    /* ── Skill card ── */
+    .skill-card {
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+    .skill-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(0,200,212,0.38) !important;
+      box-shadow: 0 22px 55px rgba(0,200,212,0.1);
+    }
+    .skill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(0,200,212,0.07);
+      border: 1px solid rgba(0,200,212,0.18);
+      color: #48f8fb;
+      padding: 0.28rem 0.7rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      font-family: 'JetBrains Mono', monospace;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .skill-tag:hover {
+      background: rgba(0,200,212,0.15);
+      border-color: rgba(0,200,212,0.45);
+    }
+
+    /* ── Project card ── */
+    .project-card {
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-9px);
+      border-color: rgba(0,200,212,0.35) !important;
+      box-shadow: 0 28px 65px rgba(0,0,0,0.35);
+    }
+
+    /* ── Timeline ── */
+    .tl-dot {
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .tl-line {
+      width: 2px; flex-shrink: 0;
+      background: linear-gradient(to bottom, rgba(0,200,212,0.5), transparent);
+      margin: 0 auto;
+    }
+
+    /* ── Separador de secciones ── */
+    .sep {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,200,212,0.2), transparent);
+      margin: 0 auto;
+      max-width: 700px;
+    }
+
+    /* ── Contact card ── */
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      transition: background 0.25s;
+    }
+    .contact-row:hover { background: rgba(0,200,212,0.06); }
+    .contact-icon {
+      width: 46px; height: 46px;
+      border-radius: 0.65rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid rgba(0,200,212,0.09); }
+
+    /* ── Responsive hero font ── */
+    @media (max-width:480px) {
+      .hero-name { font-size: 2.6rem !important; }
+    }
+  </style>
+</head>
+
+<body class="dark">
+
+<!-- ======================================================
+     CANVAS – Fondo de partículas/red interactiva
+====================================================== -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- ======================================================
+     NAVBAR
+====================================================== -->
+<nav id="navbar" class="layer">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="#hero" class="flex items-center gap-2 no-underline group">
+      <div class="w-9 h-9 glass-strong flex items-center justify-center">
+        <span class="font-mono font-bold text-xs text-brand-400 group-hover:text-brand-300 transition-colors">&lt;HD&gt;</span>
+      </div>
+      <span class="hidden sm:block text-white font-bold text-sm group-hover:text-brand-400 transition-colors">Heldyn Diaz</span>
+    </a>
+
+    <!-- Links escritorio -->
+    <!-- ✏️ EDITAR: Agrega/elimina secciones aquí -->
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#about"    class="nav-link">Sobre Mí</a>
+      <a href="#skills"   class="nav-link">Skills</a>
+      <a href="#projects" class="nav-link">Proyectos</a>
+      <a href="#contact"  class="nav-link">Contacto</a>
+    </div>
+
+    <!-- CTA escritorio -->
+    <a href="#contact" class="btn-primary hidden md:inline-flex text-sm px-5 py-2.5">
+      <i class="fa-solid fa-paper-plane text-xs"></i> Contáctame
+    </a>
+
+    <!-- Hamburguesa móvil -->
+    <button id="menu-toggle" class="md:hidden p-2 text-slate-300 hover:text-brand-400 transition-colors" aria-label="Menú">
+      <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+    </button>
+  </div>
+
+  <!-- Menú desplegable móvil -->
+  <div id="mobile-menu">
+    <div class="px-6 py-4 flex flex-col gap-3">
+      <a href="#about"    class="nav-link py-2 border-b border-white/5" onclick="closeMobileMenu()">Sobre Mí</a>
+      <a href="#skills"   class="nav-link py-2 border-b border-white/5" onclick="closeMobileMenu()">Skills</a>
+      <a href="#projects" class="nav-link py-2 border-b border-white/5" onclick="closeMobileMenu()">Proyectos</a>
+      <a href="#contact"  class="nav-link py-2 border-b border-white/5" onclick="closeMobileMenu()">Contacto</a>
+      <a href="#contact" class="btn-primary mt-2 justify-center" onclick="closeMobileMenu()">
+        <i class="fa-solid fa-paper-plane text-xs"></i> Contáctame
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ======================================================
+     HERO SECTION
+====================================================== -->
+<section id="hero" class="hero-section layer">
+
+  <!-- Badge de estado -->
+  <!-- ✏️ EDITAR: Cambia el texto del badge -->
+  <div class="hero-badge" data-aos="fade-down" data-aos-duration="600">
+    <span class="hero-dot"></span>
+    Disponible para nuevas oportunidades
+  </div>
+
+  <!-- Nombre -->
+  <!-- ✏️ EDITAR: Tu nombre -->
+  <h1 class="hero-name font-black leading-none tracking-tight mb-4"
+      style="font-size: clamp(3.2rem, 9vw, 6.5rem);"
+      data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
+    <span class="text-white">Heldyn </span><span class="text-gradient">Diaz</span>
+  </h1>
+
+  <!-- Rol / Título -->
+  <!-- ✏️ EDITAR: Tu título profesional -->
+  <p class="font-mono text-brand-400 font-semibold text-lg sm:text-xl mb-3 tracking-wide"
+     data-aos="fade-up" data-aos-duration="700" data-aos-delay="180">
+    DevOps &amp; Infrastructure Engineer
+  </p>
+
+  <!-- Descripción corta -->
+  <!-- ✏️ EDITAR: Tu descripción personal -->
+  <p class="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed"
+     data-aos="fade-up" data-aos-duration="700" data-aos-delay="250">
+    Estudiante de último trimestre en
+    <span class="text-slate-200 font-semibold">Ingeniería en Informática</span>.
+    Combino la robustez de la
+    <span class="text-brand-400 font-semibold">Infraestructura y DevOps</span>
+    con el poder del
+    <span class="text-brand-400 font-semibold">Desarrollo Web</span>
+    para construir soluciones escalables y automatizadas de extremo a extremo.
+  </p>
+
+  <!-- Botones CTA -->
+  <div class="flex flex-col sm:flex-row gap-4 mt-10 justify-center"
+       data-aos="fade-up" data-aos-duration="700" data-aos-delay="330">
+    <a href="#contact" class="btn-primary text-base px-9 py-3.5">
+      <i class="fa-solid fa-envelope"></i> Contáctame
+    </a>
+    <a href="#projects" class="btn-outline text-base px-9 py-3.5">
+      <i class="fa-solid fa-code-branch"></i> Ver Proyectos
+    </a>
+  </div>
+
+  <!-- Iconos redes sociales -->
+  <div class="flex items-center gap-4 mt-8 justify-center"
+       data-aos="fade-up" data-aos-duration="700" data-aos-delay="420">
+
+    <!-- GitHub -->
+    <a href="https://github.com/Heldyn2202" target="_blank" rel="noopener" aria-label="GitHub"
+       class="w-10 h-10 glass flex items-center justify-center text-slate-400
+              hover:text-brand-400 hover:border-brand-500 transition-all duration-300 hover:scale-110">
+      <i class="fa-brands fa-github text-lg"></i>
+    </a>
+
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/in/heldyn-diaz-daboin-17306822b" target="_blank" rel="noopener" aria-label="LinkedIn"
+       class="w-10 h-10 glass flex items-center justify-center text-slate-400
+              hover:text-brand-400 hover:border-brand-500 transition-all duration-300 hover:scale-110">
+      <i class="fa-brands fa-linkedin-in text-lg"></i>
+    </a>
+
+    <!-- ✏️ EDITAR: Reemplaza con tu correo -->
+    <a href="mailto:heldyndiaz19@gmail.com" aria-label="Email"
+       class="w-10 h-10 glass flex items-center justify-center text-slate-400
+              hover:text-brand-400 hover:border-brand-500 transition-all duration-300 hover:scale-110">
+      <i class="fa-solid fa-envelope text-base"></i>
+    </a>
+
+    <!-- ✏️ EDITAR: Reemplaza con tu número de WhatsApp (formato internacional) -->
+    <a href="https://wa.me/584121988817" target="_blank" rel="noopener" aria-label="WhatsApp"
+       class="w-10 h-10 glass flex items-center justify-center text-slate-400
+              hover:text-brand-400 hover:border-brand-500 transition-all duration-300 hover:scale-110">
+      <i class="fa-brands fa-whatsapp text-lg"></i>
+    </a>
+  </div>
+
+  <!-- Flecha de scroll -->
+  <a href="#about" aria-label="Bajar" class="float-anim mt-16 text-brand-500/50 hover:text-brand-400 transition-colors"
+     data-aos="fade-up" data-aos-delay="550">
+    <i class="fa-solid fa-chevron-down text-xl"></i>
+  </a>
+</section>
+
+<!-- ======================================================
+     SOBRE MÍ / EDUCACIÓN
+====================================================== -->
+<section id="about" class="section layer">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="text-center mb-14" data-aos="fade-up">
+      <p class="sec-label">// conóceme</p>
+      <h2 class="sec-title text-gradient">Sobre Mí</h2>
+      <div class="sec-bar"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+
+      <!-- Foto de perfil + texto ── izquierda -->
+      <div class="glass p-8" data-aos="fade-right" data-aos-duration="800">
+
+        <!-- Foto de perfil -->
+        <div class="flex items-center gap-5 mb-7">
+          <div class="relative flex-shrink-0">
+            <!-- Marco con glow -->
+            <div style="
+              width:96px; height:96px;
+              border-radius:50%;
+              padding:3px;
+              background: linear-gradient(135deg, #00c8d4, #077e8c, #48f8fb);
+              box-shadow: 0 0 22px rgba(0,200,212,0.45), 0 0 50px rgba(0,200,212,0.15);
+            ">
+              <img
+                src="assets/heldyn_profile.png"
+                alt="Foto de perfil de Heldyn Diaz"
+                style="width:90px; height:90px; border-radius:50%; object-fit:cover; object-position:top; display:block;"
+                onerror="this.style.display='none'; this.parentElement.parentElement.querySelector('.avatar-fallback').style.display='flex';"
+              />
+            </div>
+            <!-- Fallback si no carga la imagen -->
+            <div class="avatar-fallback" style="display:none; width:90px; height:90px; border-radius:50%; background:rgba(0,200,212,0.1); border:2px solid rgba(0,200,212,0.3); align-items:center; justify-content:center; position:absolute; top:3px; left:3px;">
+              <span style="font-family:'JetBrains Mono',monospace; font-weight:700; color:#00c8d4; font-size:1.6rem;">HD</span>
+            </div>
+            <!-- Indicador de estado online -->
+            <div style="position:absolute; bottom:4px; right:4px; width:14px; height:14px; background:#22c55e; border-radius:50%; border:2px solid #020b10; box-shadow:0 0 8px rgba(34,197,94,0.6);"></div>
+          </div>
+          <div>
+            <h3 class="text-white font-bold text-lg leading-tight">Heldyn Diaz</h3>
+            <p class="text-brand-400 font-mono text-xs mt-0.5">DevOps &amp; Infrastructure Engineer</p>
+            <p class="text-slate-500 text-xs mt-1">📍 Caracas, Venezuela</p>
+          </div>
+        </div>
+
+        <!-- ✏️ EDITAR: Tus párrafos de presentación -->
+        <p class="text-slate-300 leading-relaxed mb-5">
+          Soy un apasionado de la tecnología con un perfil
+          <span class="text-brand-400 font-semibold">híbrido</span>: construyo y administro
+          infraestructura robusta mientras desarrollo soluciones web funcionales.
+          Me encuentro en el
+          <span class="text-white font-semibold">último trimestre de Ingeniería en Informática</span>,
+          con experiencia práctica en entornos reales de producción.
+        </p>
+        <p class="text-slate-400 leading-relaxed">
+          Mi enfoque une lo mejor del mundo
+          <span class="text-brand-400 font-medium">DevOps</span>
+          —automatización, contenedores, monitoreo y redes— con habilidades de
+          <span class="text-brand-400 font-medium">Desarrollo Web</span>
+          para entregar proyectos completos de extremo a extremo. Me apasionan los
+          <span class="text-white font-medium">Home Labs</span>,
+          explorar nuevas herramientas y generar impacto real con cada línea de código o
+          flujo automatizado.
+        </p>
+
+        <!-- Tags de estado rápido -->
+        <div class="flex flex-wrap gap-2 mt-7">
+          <span class="skill-tag"><i class="fa-solid fa-graduation-cap text-xs"></i> Ing. Informática – Último trimestre</span>
+          <span class="skill-tag"><i class="fa-solid fa-location-dot text-xs"></i> Caracas, Venezuela</span>
+          <span class="skill-tag"><i class="fa-solid fa-bolt text-xs"></i> Open to Work</span>
+        </div>
+      </div>
+
+      <!-- Timeline ── derecha -->
+      <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="100">
+        <p class="sec-label mb-6">Formación &amp; Hitos</p>
+
+        <div class="space-y-5">
+
+          <!-- ✏️ EDITAR: Cambia las fechas, títulos e institución -->
+          <!-- Item 1 -->
+          <div class="flex gap-4">
+            <div class="flex flex-col items-center" style="width:18px;">
+              <div class="tl-dot" style="background:#00c8d4; box-shadow:0 0 12px rgba(0,200,212,0.55);"></div>
+              <div class="tl-line mt-1" style="height:52px;"></div>
+            </div>
+            <div class="glass p-4 flex-1 hover:border-brand-500/30 transition-colors">
+              <span class="font-mono text-brand-500 text-xs">2022 – Actualidad</span>
+              <h3 class="text-white font-semibold mt-0.5">Ingeniería en Informática</h3>
+              <p class="text-slate-400 text-sm mt-1">Universidad Politécnica Territorial de Caracas Mariscal Sucre · Último trimestre en curso</p>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="flex gap-4">
+            <div class="flex flex-col items-center" style="width:18px;">
+              <div class="tl-dot" style="background:#818cf8; box-shadow:0 0 12px rgba(129,140,248,0.5);"></div>
+              <div class="tl-line mt-1" style="height:52px; background:linear-gradient(to bottom,rgba(129,140,248,0.5),transparent);"></div>
+            </div>
+            <div class="glass p-4 flex-1 hover:border-indigo-500/30 transition-colors">
+              <span class="font-mono text-indigo-400 text-xs">Continuo</span>
+              <!-- ✏️ EDITAR: Tu rol o experiencia laboral -->
+              <h3 class="text-white font-semibold mt-0.5">Especialista DevOps · Infraestructura</h3>
+              <p class="text-slate-400 text-sm mt-1">Gestión de servidores, redes, monitoreo y automatización en entornos reales y Home Lab</p>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="flex gap-4">
+            <div class="flex flex-col items-center" style="width:18px;">
+              <div class="tl-dot" style="background:#f472b6; box-shadow:0 0 12px rgba(244,114,182,0.5);"></div>
+            </div>
+            <div class="glass p-4 flex-1 hover:border-pink-500/30 transition-colors">
+              <span class="font-mono text-pink-400 text-xs">En curso</span>
+              <!-- ✏️ EDITAR: Certificaciones u otros logros -->
+              <h3 class="text-white font-semibold mt-0.5">Certificaciones &amp; Autoaprendizaje</h3>
+              <p class="text-slate-400 text-sm mt-1">n8n, Docker, Proxmox, Zabbix, Grafana – práctica intensiva en laboratorio propio</p>
+            </div>
+          </div>
+
+        </div><!-- /space-y-5 -->
+      </div>
+
+    </div><!-- /grid -->
+  </div>
+</section>
+
+<div class="sep layer"></div>
+
+<!-- ======================================================
+     SKILLS / STACK TÉCNICO
+====================================================== -->
+<section id="skills" class="section layer">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="text-center mb-14" data-aos="fade-up">
+      <p class="sec-label">// mis herramientas</p>
+      <h2 class="sec-title text-gradient">Stack Técnico</h2>
+      <div class="sec-bar"></div>
+      <p class="text-slate-500 mt-2 max-w-lg mx-auto text-base">
+        Tecnologías que domino y aplico en proyectos reales, desde la infraestructura hasta el frontend.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- ── 1. Automatización ── -->
+      <div class="skill-card glass p-6" data-aos="fade-up" data-aos-delay="0">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-11 h-11 flex items-center justify-center rounded-xl"
+               style="background:rgba(0,200,212,0.1); border:1px solid rgba(0,200,212,0.22);">
+            <i class="fa-solid fa-robot text-brand-400 text-lg"></i>
+          </div>
+          <div>
+            <h3 class="text-white font-bold text-base">Automatización</h3>
+            <p class="text-slate-500 text-xs">Flujos &amp; Workflows</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-tag"><i class="fa-solid fa-diagram-project text-xs"></i> n8n</span>
+          <span class="skill-tag"><i class="fa-solid fa-gears text-xs"></i> Flujos de Trabajo</span>
+          <span class="skill-tag"><i class="fa-solid fa-plug text-xs"></i> Integraciones API</span>
+          <span class="skill-tag"><i class="fa-solid fa-bolt text-xs"></i> Webhooks</span>
+        </div>
+      </div>
+
+      <!-- ── 2. Infraestructura ── -->
+      <div class="skill-card glass p-6" data-aos="fade-up" data-aos-delay="70">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-11 h-11 flex items-center justify-center rounded-xl"
+               style="background:rgba(129,140,248,0.1); border:1px solid rgba(129,140,248,0.22);">
+            <i class="fa-solid fa-server text-indigo-400 text-lg"></i>
+          </div>
+          <div>
+            <h3 class="text-white font-bold text-base">Infraestructura &amp; Virtualización</h3>
+            <p class="text-slate-500 text-xs">On-Premise &amp; Containers</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-tag" style="color:#a5b4fc; border-color:rgba(129,140,248,0.25);">
+            <i class="fa-solid fa-cubes text-xs"></i> Proxmox
+          </span>
+          <span class="skill-tag" style="color:#a5b4fc; border-color:rgba(129,140,248,0.25);">
+            <i class="fa-brands fa-docker text-xs"></i> Docker
+          </span>
+          <span class="skill-tag" style="color:#a5b4fc; border-color:rgba(129,140,248,0.25);">
+            <i class="fa-solid fa-shield text-xs"></i> Portainer
+          </span>
+          <span class="skill-tag" style="color:#a5b4fc; border-color:rgba(129,140,248,0.25);">
+            <i class="fa-solid fa-layer-group text-xs"></i> VMs &amp; LXC
+          </span>
+        </div>
+      </div>
+
+      <!-- ── 3. Redes & SysAdmin ── -->
+      <div class="skill-card glass p-6" data-aos="fade-up" data-aos-delay="140">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-11 h-11 flex items-center justify-center rounded-xl"
+               style="background:rgba(52,211,153,0.1); border:1px solid rgba(52,211,153,0.22);">
+            <i class="fa-solid fa-network-wired text-emerald-400 text-lg"></i>
+          </div>
+          <div>
+            <h3 class="text-white font-bold text-base">Redes &amp; SysAdmin</h3>
+            <p class="text-slate-500 text-xs">Servicios de Red</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-tag" style="color:#6ee7b7; border-color:rgba(52,211,153,0.25);">
+            <i class="fa-solid fa-globe text-xs"></i> DNS
+          </span>
+          <span class="skill-tag" style="color:#6ee7b7; border-color:rgba(52,211,153,0.25);">
+            <i class="fa-solid fa-sitemap text-xs"></i> DHCP
+          </span>
+          <span class="skill-tag" style="color:#6ee7b7; border-color:rgba(52,211,153,0.25);">
+            <i class="fa-solid fa-database text-xs"></i> Netbox
+          </span>
+          <span class="skill-tag" style="color:#6ee7b7; border-color:rgba(52,211,153,0.25);">
+            <i class="fa-solid fa-clock text-xs"></i> NTP
+          </span>
+          <span class="skill-tag" style="color:#6ee7b7; border-color:rgba(52,211,153,0.25);">
+            <i class="fa-solid fa-file-lines text-xs"></i> Syslog
+          </span>
+        </div>
+      </div>
+
+      <!-- ── 4. Monitoreo ── -->
+      <div class="skill-card glass p-6" data-aos="fade-up" data-aos-delay="210">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-11 h-11 flex items-center justify-center rounded-xl"
+               style="background:rgba(251,146,60,0.1); border:1px solid rgba(251,146,60,0.22);">
+            <i class="fa-solid fa-chart-line text-orange-400 text-lg"></i>
+          </div>
+          <div>
+            <h3 class="text-white font-bold text-base">Monitoreo</h3>
+            <p class="text-slate-500 text-xs">Observabilidad &amp; Alertas</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-tag" style="color:#fdba74; border-color:rgba(251,146,60,0.25);">
+            <i class="fa-solid fa-eye text-xs"></i> Zabbix
+          </span>
+          <span class="skill-tag" style="color:#fdba74; border-color:rgba(251,146,60,0.25);">
+            <i class="fa-solid fa-chart-bar text-xs"></i> Grafana
+          </span>
+          <span class="skill-tag" style="color:#fdba74; border-color:rgba(251,146,60,0.25);">
+            <i class="fa-solid fa-bell text-xs"></i> Alertas &amp; Dashboards
+          </span>
+          <span class="skill-tag" style="color:#fdba74; border-color:rgba(251,146,60,0.25);">
+            <i class="fa-brands fa-discord text-xs"></i> Notificaciones
+          </span>
+        </div>
+      </div>
+
+      <!-- ── 5. Desarrollo Web ── -->
+      <div class="skill-card glass p-6" data-aos="fade-up" data-aos-delay="280">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-11 h-11 flex items-center justify-center rounded-xl"
+               style="background:rgba(244,114,182,0.1); border:1px solid rgba(244,114,182,0.22);">
+            <i class="fa-solid fa-code text-pink-400 text-lg"></i>
+          </div>
+          <div>
+            <h3 class="text-white font-bold text-base">Desarrollo Web</h3>
+            <p class="text-slate-500 text-xs">Frontend &amp; Backend</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-tag" style="color:#f9a8d4; border-color:rgba(244,114,182,0.25);">
+            <i class="fa-brands fa-php text-xs"></i> PHP
+          </span>
+          <span class="skill-tag" style="color:#f9a8d4; border-color:rgba(244,114,182,0.25);">
+            <i class="fa-solid fa-database text-xs"></i> MySQL
+          </span>
+          <span class="skill-tag" style="color:#f9a8d4; border-color:rgba(244,114,182,0.25);">
+            <i class="fa-brands fa-html5 text-xs"></i> HTML5
+          </span>
+          <span class="skill-tag" style="color:#f9a8d4; border-color:rgba(244,114,182,0.25);">
+            <i class="fa-brands fa-css3-alt text-xs"></i> CSS3
+          </span>
+          <span class="skill-tag" style="color:#f9a8d4; border-color:rgba(244,114,182,0.25);">
+            <i class="fa-brands fa-js text-xs"></i> JavaScript
+          </span>
+        </div>
+      </div>
+
+      <!-- ── 6. Metodología ── -->
+      <div class="skill-card glass p-6" data-aos="fade-up" data-aos-delay="350">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-11 h-11 flex items-center justify-center rounded-xl"
+               style="background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.22);">
+            <i class="fa-solid fa-lightbulb text-yellow-400 text-lg"></i>
+          </div>
+          <div>
+            <h3 class="text-white font-bold text-base">Metodología &amp; Soft Skills</h3>
+            <p class="text-slate-500 text-xs">Procesos &amp; Mentalidad</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-tag" style="color:#fde68a; border-color:rgba(251,191,36,0.25);">
+            <i class="fa-solid fa-rotate text-xs"></i> CI/CD mindset
+          </span>
+          <span class="skill-tag" style="color:#fde68a; border-color:rgba(251,191,36,0.25);">
+            <i class="fa-solid fa-people-group text-xs"></i> Trabajo en equipo
+          </span>
+          <span class="skill-tag" style="color:#fde68a; border-color:rgba(251,191,36,0.25);">
+            <i class="fa-solid fa-book text-xs"></i> Autodidacta
+          </span>
+          <span class="skill-tag" style="color:#fde68a; border-color:rgba(251,191,36,0.25);">
+            <i class="fa-solid fa-magnifying-glass text-xs"></i> Resolución de problemas
+          </span>
+        </div>
+      </div>
+
+    </div><!-- /grid skills -->
+  </div>
+</section>
+
+<div class="sep layer"></div>
+
+<!-- ======================================================
+     PROYECTOS / HOME LAB
+====================================================== -->
+<section id="projects" class="section layer">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="text-center mb-14" data-aos="fade-up">
+      <p class="sec-label">// lo que he construido</p>
+      <h2 class="sec-title text-gradient">Proyectos &amp; Home Lab</h2>
+      <div class="sec-bar"></div>
+      <p class="text-slate-500 mt-2 max-w-lg mx-auto text-base">
+        Proyectos reales que demuestran mis habilidades técnicas en entornos de producción y laboratorio propio.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- ==================================================
+           ✏️ EDITAR: Cada tarjeta es un proyecto.
+           Cambia el href="#" de los botones con tus URLs reales.
+           Duplica/elimina tarjetas según necesites.
+      ================================================== -->
+
+      <!-- Proyecto 1 -->
+      <div class="project-card glass" data-aos="fade-up" data-aos-delay="0">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-12 h-12 flex items-center justify-center rounded-xl text-xl"
+                 style="background:rgba(244,114,182,0.1); border:1px solid rgba(244,114,182,0.25);">
+              <i class="fa-solid fa-globe text-pink-400"></i>
+            </div>
+            <div class="flex gap-3">
+              <!-- ✏️ EDITAR: Link al repo de GitHub -->
+              <a href="#" target="_blank" rel="noopener" aria-label="GitHub repo"
+                 class="text-slate-500 hover:text-brand-400 transition-colors">
+                <i class="fa-brands fa-github text-lg"></i>
+              </a>
+              <!-- ✏️ EDITAR: Link a demo en vivo -->
+              <a href="#" target="_blank" rel="noopener" aria-label="Demo en vivo"
+                 class="text-slate-500 hover:text-brand-400 transition-colors">
+                <i class="fa-solid fa-arrow-up-right-from-square text-base"></i>
+              </a>
+            </div>
+          </div>
+          <!-- ✏️ EDITAR: Nombre y descripción del proyecto -->
+          <h3 class="text-white font-bold text-lg mb-2">Sistema Web PHP/MySQL</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-5">
+            Aplicación web completa con panel de administración, autenticación de usuarios,
+            gestión de datos y API RESTful, desarrollada con PHP y MySQL sobre Apache/XAMPP.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag text-xs"><i class="fa-brands fa-php text-xs"></i> PHP</span>
+            <span class="skill-tag text-xs"><i class="fa-solid fa-database text-xs"></i> MySQL</span>
+            <span class="skill-tag text-xs"><i class="fa-brands fa-html5 text-xs"></i> HTML5</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proyecto 2 -->
+      <div class="project-card glass" data-aos="fade-up" data-aos-delay="70">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-12 h-12 flex items-center justify-center rounded-xl text-xl"
+                 style="background:rgba(0,200,212,0.1); border:1px solid rgba(0,200,212,0.25);">
+              <i class="fa-solid fa-diagram-project text-brand-400"></i>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" target="_blank" rel="noopener" aria-label="GitHub repo"
+                 class="text-slate-500 hover:text-brand-400 transition-colors">
+                <i class="fa-brands fa-github text-lg"></i>
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Demo"
+                 class="text-slate-500 hover:text-brand-400 transition-colors">
+                <i class="fa-solid fa-arrow-up-right-from-square text-base"></i>
+              </a>
+            </div>
+          </div>
+          <!-- ✏️ EDITAR -->
+          <h3 class="text-white font-bold text-lg mb-2">Automatizaciones con n8n</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-5">
+            Suite de flujos de trabajo automatizados integrando múltiples servicios: notificaciones
+            a Discord, sincronización de datos, alertas de monitoreo y bots de comunicación.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag text-xs"><i class="fa-solid fa-robot text-xs"></i> n8n</span>
+            <span class="skill-tag text-xs"><i class="fa-brands fa-discord text-xs"></i> Discord</span>
+            <span class="skill-tag text-xs"><i class="fa-solid fa-plug text-xs"></i> API REST</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proyecto 3 -->
+      <div class="project-card glass" data-aos="fade-up" data-aos-delay="140">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-12 h-12 flex items-center justify-center rounded-xl text-xl"
+                 style="background:rgba(251,146,60,0.1); border:1px solid rgba(251,146,60,0.25);">
+              <i class="fa-solid fa-chart-line text-orange-400"></i>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" target="_blank" rel="noopener" aria-label="GitHub repo"
+                 class="text-slate-500 hover:text-brand-400 transition-colors">
+                <i class="fa-brands fa-github text-lg"></i>
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Demo"
+                 class="text-slate-500 hover:text-brand-400 transition-colors">
+                <i class="fa-solid fa-arrow-up-right-from-square text-base"></i>
+              </a>
+            </div>
+          </div>
+          <!-- ✏️ EDITAR -->
+          <h3 class="text-white font-bold text-lg mb-2">Arquitectura de Monitoreo</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-5">
+            Stack completo de observabilidad: Zabbix para alertas SNMP/agente, Grafana
+            para dashboards en tiempo real y notificaciones automáticas vía Discord y Telegram.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag text-xs" style="color:#fdba74; border-color:rgba(251,146,60,0.3);">
+              <i class="fa-solid fa-eye text-xs"></i> Zabbix
+            </span>
+            <span class="skill-tag text-xs" style="color:#fdba74; border-color:rgba(251,146,60,0.3);">
+              <i class="fa-solid fa-chart-bar text-xs"></i> Grafana
+            </span>
+            <span class="skill-tag text-xs" style="color:#fdba74; border-color:rgba(251,146,60,0.3);">
+              <i class="fa-solid fa-bell text-xs"></i> Alertas
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proyecto 4 -->
+      <div class="project-card glass" data-aos="fade-up" data-aos-delay="210">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-12 h-12 flex items-center justify-center rounded-xl text-xl"
+                 style="background:rgba(129,140,248,0.1); border:1px solid rgba(129,140,248,0.25);">
+              <i class="fa-solid fa-server text-indigo-400"></i>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" target="_blank" rel="noopener" aria-label="GitHub repo"
+                 class="text-slate-500 hover:text-brand-400 transition-colors">
+                <i class="fa-brands fa-github text-lg"></i>
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Demo"
+                 class="text-slate-500 hover:text-brand-400 transition-colors">
+                <i class="fa-solid fa-arrow-up-right-from-square text-base"></i>
+              </a>
+            </div>
+          </div>
+          <!-- ✏️ EDITAR -->
+          <h3 class="text-white font-bold text-lg mb-2">Home Lab con Proxmox</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-5">
+            Clúster de virtualización con Proxmox VE: múltiples VMs y LXC. Servicios
+            autodesplegados en contenedores Docker: DNS, DHCP, Netbox, NTP y Syslog.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag text-xs" style="color:#a5b4fc; border-color:rgba(129,140,248,0.3);">
+              <i class="fa-solid fa-cubes text-xs"></i> Proxmox
+            </span>
+            <span class="skill-tag text-xs" style="color:#a5b4fc; border-color:rgba(129,140,248,0.3);">
+              <i class="fa-brands fa-docker text-xs"></i> Docker
+            </span>
+            <span class="skill-tag text-xs" style="color:#a5b4fc; border-color:rgba(129,140,248,0.3);">
+              <i class="fa-solid fa-network-wired text-xs"></i> Redes
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proyecto 5 -->
+      <div class="project-card glass" data-aos="fade-up" data-aos-delay="280">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-12 h-12 flex items-center justify-center rounded-xl text-xl"
+                 style="background:rgba(52,211,153,0.1); border:1px solid rgba(52,211,153,0.25);">
+              <i class="fa-solid fa-sitemap text-emerald-400"></i>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" target="_blank" rel="noopener" aria-label="GitHub repo"
+                 class="text-slate-500 hover:text-brand-400 transition-colors">
+                <i class="fa-brands fa-github text-lg"></i>
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Demo"
+                 class="text-slate-500 hover:text-brand-400 transition-colors">
+                <i class="fa-solid fa-arrow-up-right-from-square text-base"></i>
+              </a>
+            </div>
+          </div>
+          <!-- ✏️ EDITAR -->
+          <h3 class="text-white font-bold text-lg mb-2">Gestión de Red con Netbox</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-5">
+            Implementación de Netbox como fuente de verdad: documentación y gestión de
+            activos de red, IPs, VLANs e inventario de dispositivos vía Docker.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag text-xs" style="color:#6ee7b7; border-color:rgba(52,211,153,0.3);">
+              <i class="fa-solid fa-database text-xs"></i> Netbox
+            </span>
+            <span class="skill-tag text-xs" style="color:#6ee7b7; border-color:rgba(52,211,153,0.3);">
+              <i class="fa-solid fa-network-wired text-xs"></i> IPAM
+            </span>
+            <span class="skill-tag text-xs" style="color:#6ee7b7; border-color:rgba(52,211,153,0.3);">
+              <i class="fa-brands fa-docker text-xs"></i> Docker
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Placeholder – próximo proyecto -->
+      <!-- ✏️ EDITAR: Reemplaza este bloque por un proyecto real cuando lo tengas -->
+      <div class="project-card" data-aos="fade-up" data-aos-delay="350"
+           style="border:1.5px dashed rgba(0,200,212,0.2); border-radius:1rem;
+                  display:flex; align-items:center; justify-content:center; min-height:230px;">
+        <div class="text-center p-6">
+          <div class="w-14 h-14 mx-auto glass flex items-center justify-center mb-4">
+            <i class="fa-solid fa-plus text-brand-500 text-2xl"></i>
+          </div>
+          <p class="text-slate-500 text-sm font-medium">Más proyectos próximamente</p>
+          <p class="text-slate-700 text-xs mt-1">¡En construcción!</p>
+        </div>
+      </div>
+
+    </div><!-- /grid proyectos -->
+  </div>
+</section>
+
+<div class="sep layer"></div>
+
+<!-- ======================================================
+     CONTACTO
+====================================================== -->
+<section id="contact" class="section layer">
+  <div class="max-w-4xl mx-auto">
+
+    <div class="text-center mb-14" data-aos="fade-up">
+      <p class="sec-label">// trabajemos juntos</p>
+      <h2 class="sec-title text-gradient">Contáctame</h2>
+      <div class="sec-bar"></div>
+      <p class="text-slate-500 mt-2 max-w-lg mx-auto text-base">
+        ¿Tienes un proyecto en mente o una oportunidad? ¡Hablemos!
+      </p>
+    </div>
+
+    <div class="glass p-8 sm:p-12" data-aos="fade-up" data-aos-delay="100">
+      <div class="grid sm:grid-cols-2 gap-8">
+
+        <!-- Info de contacto -->
+        <div>
+          <h3 class="text-white font-bold text-xl mb-7">Información de Contacto</h3>
+          <div class="space-y-2">
+
+            <!-- Teléfono -->
+            <!-- ✏️ EDITAR: Tu número de teléfono -->
+            <div class="contact-row">
+              <div class="contact-icon glass-strong">
+                <i class="fa-solid fa-phone text-brand-400"></i>
+              </div>
+              <div>
+                <p class="text-slate-500 text-xs font-mono uppercase tracking-wider">Teléfono</p>
+                <a href="tel:+584121988817" class="text-white font-medium hover:text-brand-400 transition-colors">
+                  +58 412 198 8817
+                </a>
+              </div>
+            </div>
+
+            <!-- Correo -->
+            <!-- ✏️ EDITAR: Tu correo electrónico -->
+            <div class="contact-row">
+              <div class="contact-icon glass-strong">
+                <i class="fa-solid fa-envelope text-brand-400"></i>
+              </div>
+              <div>
+                <p class="text-slate-500 text-xs font-mono uppercase tracking-wider">Correo</p>
+                <a href="mailto:heldyndiaz19@gmail.com" class="text-white font-medium hover:text-brand-400 transition-colors break-all">
+                  heldyndiaz19@gmail.com
+                </a>
+              </div>
+            </div>
+
+            <!-- GitHub -->
+            <!-- GitHub -->
+            <div class="contact-row">
+              <div class="contact-icon glass-strong">
+                <i class="fa-brands fa-github text-brand-400 text-lg"></i>
+              </div>
+              <div>
+                <p class="text-slate-500 text-xs font-mono uppercase tracking-wider">GitHub</p>
+                <a href="https://github.com/Heldyn2202" target="_blank" rel="noopener" class="text-white font-medium hover:text-brand-400 transition-colors">
+                  github.com/Heldyn2202
+                </a>
+              </div>
+            </div>
+
+            <!-- LinkedIn -->
+            <!-- LinkedIn -->
+            <div class="contact-row">
+              <div class="contact-icon glass-strong">
+                <i class="fa-brands fa-linkedin-in text-brand-400"></i>
+              </div>
+              <div>
+                <p class="text-slate-500 text-xs font-mono uppercase tracking-wider">LinkedIn</p>
+                <a href="https://www.linkedin.com/in/heldyn-diaz-daboin-17306822b" target="_blank" rel="noopener" class="text-white font-medium hover:text-brand-400 transition-colors">
+                  linkedin.com/in/heldyn-diaz-daboin
+                </a>
+              </div>
+            </div>
+
+          </div><!-- /space-y-2 -->
+        </div>
+
+        <!-- Botones de acción rápida -->
+        <div class="flex flex-col gap-4">
+          <h3 class="text-white font-bold text-xl mb-1">Acción Rápida</h3>
+
+          <!-- WhatsApp -->
+          <!-- ✏️ EDITAR: Cambia el número (formato internacional sin +) en el href -->
+          <a href="https://wa.me/584121988817?text=Hola%20Heldyn%2C%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar%20contigo."
+             target="_blank" rel="noopener" id="btn-whatsapp"
+             class="btn-primary text-base px-6 py-4 justify-center"
+             style="background:linear-gradient(135deg,#25d366,#128c7e);">
+            <i class="fa-brands fa-whatsapp text-xl"></i>
+            Enviar WhatsApp
+          </a>
+
+          <!-- Correo directo -->
+          <!-- ✏️ EDITAR: Cambia el correo en el href -->
+          <a href="mailto:heldyndiaz19@gmail.com?subject=Oportunidad%20de%20colaboraci%C3%B3n&body=Hola%20Heldyn%2C%20"
+             id="btn-email"
+             class="btn-primary text-base px-6 py-4 justify-center">
+            <i class="fa-solid fa-envelope text-base"></i>
+            Enviar Correo
+          </a>
+
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/heldyn-diaz-daboin-17306822b" target="_blank" rel="noopener" id="btn-linkedin"
+             class="btn-outline text-base px-6 py-4 justify-center">
+            <i class="fa-brands fa-linkedin-in"></i>
+            Conectar en LinkedIn
+          </a>
+
+          <!-- GitHub -->
+          <a href="https://github.com/Heldyn2202" target="_blank" rel="noopener" id="btn-github"
+             class="btn-outline text-base px-6 py-4 justify-center">
+            <i class="fa-brands fa-github text-lg"></i>
+            Ver mi GitHub
+          </a>
+
+        </div>
+      </div><!-- /grid contacto -->
+    </div><!-- /glass card -->
+
+  </div>
+</section>
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+<footer class="layer py-8">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <!-- ✏️ EDITAR: Año y nombre -->
+    <p class="text-slate-600 text-sm font-mono">
+      &copy; 2025 &middot; <span class="text-brand-500">Heldyn Diaz</span>
+      &middot; Diseñado con <i class="fa-solid fa-heart text-pink-500 text-xs mx-0.5"></i> y mucho café
+      <i class="fa-solid fa-mug-hot text-brand-500 text-xs ml-0.5"></i>
+    </p>
+    <p class="text-slate-700 text-xs mt-1 font-mono">DevOps · Infraestructura · Automatización · Desarrollo Web</p>
+  </div>
+</footer>
+
+<!-- ======================================================
+     SCRIPTS
+====================================================== -->
+
+<!-- AOS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+/* ============================================================
+   1. AOS – Animaciones al scroll
+============================================================ */
+AOS.init({
+  duration : 680,
+  easing   : 'ease-out-cubic',
+  once     : true,
+  offset   : 55,
+});
+
+/* ============================================================
+   2. NAVBAR – Efecto transparente → sólido al scrollear
+============================================================ */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
+
+/* ============================================================
+   3. MENÚ MÓVIL – Toggle hamburguesa / X
+============================================================ */
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+const menuIcon   = document.getElementById('menu-icon');
+
+menuToggle.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  menuIcon.className = open ? 'fa-solid fa-xmark text-xl' : 'fa-solid fa-bars text-xl';
+});
+
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  menuIcon.className = 'fa-solid fa-bars text-xl';
+}
+
+/* ============================================================
+   4. ACTIVE NAV LINK al hacer scroll (IntersectionObserver)
+============================================================ */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('#navbar .nav-link');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+      });
+    }
+  });
+}, { threshold: 0.38 });
+
+sections.forEach(s => sectionObserver.observe(s));
+
+/* ============================================================
+   5. PARTÍCULAS – Red interactiva implementada con Canvas API
+   ─────────────────────────────────────────────────────────
+   Sin dependencias externas. Rendimiento optimizado con
+   requestAnimationFrame y límite de conexiones por nodo.
+============================================================ */
+(function () {
+  'use strict';
+
+  const canvas = document.getElementById('particles-canvas');
+  const ctx    = canvas.getContext('2d');
+
+  /* ── Parámetros ajustables ── */
+  const CFG = {
+    count      : 85,          // Cantidad de partículas
+    linkDist   : 145,         // Distancia máxima para conectar (px)
+    mouseRad   : 175,         // Radio de influencia del cursor
+    speed      : 0.32,        // Velocidad base
+    nodeRadius : 1.8,         // Radio visual del nodo
+    lineAlpha  : 0.14,        // Opacidad máxima de las líneas
+    color      : '0,200,212', // RGB – color principal (brand-500)
+    colorNear  : '72,248,251',// RGB – color de nodos cercanos al cursor
+  };
+
+  let W, H, nodes;
+  const mouse = { x: -9999, y: -9999 };
+
+  /* ── Resize del canvas ── */
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  /* ── Clase Nodo ── */
+  class Node {
+    constructor(init) {
+      this.reset(init);
+    }
+    reset(init) {
+      this.x  = Math.random() * (W || window.innerWidth);
+      this.y  = init
+        ? Math.random() * (H || window.innerHeight)
+        : (Math.random() > 0.5 ? -4 : (H || window.innerHeight) + 4);
+      this.vx = (Math.random() - 0.5) * CFG.speed * 2;
+      this.vy = (Math.random() - 0.5) * CFG.speed * 2;
+      this.r  = CFG.nodeRadius * (0.55 + Math.random() * 0.6);
+      this.a0 = 0.35 + Math.random() * 0.5; // alpha base
+      this.a  = this.a0;
+    }
+    update() {
+      /* Repulsión suave desde el cursor */
+      const dx   = mouse.x - this.x;
+      const dy   = mouse.y - this.y;
+      const dist = Math.hypot(dx, dy);
+      if (dist < CFG.mouseRad && dist > 0) {
+        const f  = (CFG.mouseRad - dist) / CFG.mouseRad;
+        this.vx -= (dx / dist) * f * 0.018;
+        this.vy -= (dy / dist) * f * 0.018;
+      }
+      /* Fricción */
+      this.vx *= 0.99;
+      this.vy *= 0.99;
+      /* Velocidad mínima */
+      const sp = Math.hypot(this.vx, this.vy);
+      if (sp < CFG.speed * 0.25) {
+        this.vx += (Math.random() - 0.5) * 0.06;
+        this.vy += (Math.random() - 0.5) * 0.06;
+      }
+      this.x += this.vx;
+      this.y += this.vy;
+      /* Rebote en bordes */
+      if (this.x < 0)  { this.x = 0; this.vx = Math.abs(this.vx); }
+      if (this.x > W)  { this.x = W; this.vx = -Math.abs(this.vx); }
+      if (this.y < 0)  { this.y = 0; this.vy = Math.abs(this.vy); }
+      if (this.y > H)  { this.y = H; this.vy = -Math.abs(this.vy); }
+      /* Alpha según distancia al cursor */
+      const dm = Math.hypot(mouse.x - this.x, mouse.y - this.y);
+      this.a   = dm < CFG.mouseRad
+        ? Math.min(1, this.a0 + 0.45 * (1 - dm / CFG.mouseRad))
+        : this.a0;
+    }
+    draw() {
+      const near  = Math.hypot(mouse.x - this.x, mouse.y - this.y) < CFG.mouseRad;
+      const c     = near ? CFG.colorNear : CFG.color;
+      /* Nodo */
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${c},${this.a})`;
+      ctx.fill();
+      /* Halo si está cerca del cursor */
+      if (near) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r * 2.8, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${c},${this.a * 0.12})`;
+        ctx.fill();
+      }
+    }
+  }
+
+  /* ── Crear array de nodos ── */
+  function buildNodes() {
+    nodes = Array.from({ length: CFG.count }, (_, i) => new Node(i < CFG.count));
+  }
+
+  /* ── Loop principal ── */
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    /* Conexiones */
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx   = nodes[i].x - nodes[j].x;
+        const dy   = nodes[i].y - nodes[j].y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < CFG.linkDist) {
+          const ratio = 1 - dist / CFG.linkDist;
+          const alpha = ratio * CFG.lineAlpha;
+          const grad  = ctx.createLinearGradient(
+            nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y
+          );
+          grad.addColorStop(0, `rgba(${CFG.color},${alpha})`);
+          grad.addColorStop(1, `rgba(${CFG.color},${alpha * 0.25})`);
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = grad;
+          ctx.lineWidth   = ratio * 1.1;
+          ctx.stroke();
+        }
+      }
+      nodes[i].update();
+      nodes[i].draw();
+    }
+    requestAnimationFrame(loop);
+  }
+
+  /* ── Eventos ── */
+  window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', e => {
+    if (e.touches.length) {
+      mouse.x = e.touches[0].clientX;
+      mouse.y = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  window.addEventListener('mouseleave',  () => { mouse.x = -9999; mouse.y = -9999; });
+  window.addEventListener('touchend',    () => { mouse.x = -9999; mouse.y = -9999; });
+
+  window.addEventListener('resize', () => {
+    resize();
+    buildNodes();
+  }, { passive: true });
+
+  /* ── Arranque ── */
+  resize();
+  buildNodes();
+  loop();
+})();
+</script>
+
+</body>
+</html>
