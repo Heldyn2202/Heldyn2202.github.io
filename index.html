@@ -2097,22 +2097,30 @@ async function hdSend() {
   }
 }
 
-/* ── Llamar a Gemini API (con soporte OAuth + REST key) ── */
+/* ── Llamar a Gemini API (soporta AIza + AQ. keys) ── */
 async function hdCallGemini() {
-  const key      = HD_STATE.apiKey;
-  const isOAuth  = key.startsWith('AQ.') || key.startsWith('ya29.');
+  const key = HD_STATE.apiKey;
 
-  /* Lista de modelos a intentar en orden (más recientes primero) */
+  /* Modelos disponibles en orden de preferencia (2025-2026) */
   const MODELS = [
     'gemini-2.0-flash',
     'gemini-2.0-flash-exp',
     'gemini-2.5-flash',
-    'gemini-2.5-flash-preview-04-17',
     'gemini-1.5-flash',
     'gemini-1.5-flash-latest',
     'gemini-1.5-pro',
     'gemini-1.0-pro',
     'gemini-pro',
+  ];
+
+  /* Estrategias de autenticación a probar:
+     Las claves AQ. pueden funcionar tanto como ?key= como Bearer token */
+  const AUTH_STRATEGIES = key.startsWith('AQ.') ? [
+    { asParam: true,  asBearer: false }, // AQ. como ?key= (nativo)
+    { asParam: false, asBearer: true  }, // AQ. como Bearer token
+    { asParam: true,  asBearer: true  }, // Ambos a la vez
+  ] : [
+    { asParam: true,  asBearer: false }, // AIza... solo como ?key=
   ];
 
   /* Construir contenido con system prompt */
@@ -2137,49 +2145,54 @@ async function hdCallGemini() {
     ],
   };
 
-  let lastError = null;
+  let lastError = 'Sin respuesta de la API';
 
-  /* Intentar cada modelo hasta que uno funcione */
-  for (const model of MODELS) {
+  for (const strategy of AUTH_STRATEGIES) {
     for (const ver of ['v1beta', 'v1']) {
-      try {
-        const url = isOAuth
-          ? `https://generativelanguage.googleapis.com/${ver}/models/${model}:generateContent`
-          : `https://generativelanguage.googleapis.com/${ver}/models/${model}:generateContent?key=${key}`;
+      for (const model of MODELS) {
+        try {
+          const base = `https://generativelanguage.googleapis.com/${ver}/models/${model}:generateContent`;
+          const url  = strategy.asParam ? `${base}?key=${key}` : base;
+          const headers = { 'Content-Type': 'application/json' };
+          if (strategy.asBearer) headers['Authorization'] = `Bearer ${key}`;
 
-        const headers = { 'Content-Type': 'application/json' };
-        if (isOAuth) headers['Authorization'] = `Bearer ${key}`;
+          const res  = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body) });
+          const data = await res.json();
 
-        const res  = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body) });
-        const data = await res.json();
+          if (res.ok) {
+            console.log(`✅ HD Bot: ${ver}/${model} [param:${strategy.asParam} bearer:${strategy.asBearer}]`);
+            return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || null;
+          }
 
-        if (res.ok) {
-          console.log(`HD: usando ${ver}/${model}`);
-          return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || null;
-        }
+          const errMsg = data.error?.message || `HTTP ${res.status}`;
 
-        /* Si el modelo no existe, seguir con el siguiente */
-        const errMsg = data.error?.message || '';
-        if (errMsg.includes('not found') || errMsg.includes('not supported') || res.status === 404) {
-          lastError = errMsg;
-          continue;
-        }
+          /* Modelo no disponible → probar el siguiente */
+          if (errMsg.includes('not found') || errMsg.includes('not supported') || res.status === 404) {
+            lastError = errMsg; continue;
+          }
+          /* Error de autenticación → probar siguiente estrategia */
+          if (res.status === 401 || res.status === 403 || errMsg.includes('API_KEY') || errMsg.includes('UNAUTHENTICATED')) {
+            lastError = errMsg; break;
+          }
+          /* Cualquier otro error real → lanzar */
+          throw new Error(errMsg);
 
-        /* Error real (auth, cuota, etc.) – lanzar inmediatamente */
-        throw new Error(errMsg || `HTTP ${res.status}`);
-
-      } catch (e) {
-        if (e.message?.includes('not found') || e.message?.includes('not supported')) {
+        } catch (e) {
+          if (e.message?.includes('not found') || e.message?.includes('not supported')) {
+            lastError = e.message; continue;
+          }
+          if (e.name === 'TypeError' && e.message.includes('fetch')) {
+            throw new Error('Sin conexión a internet');
+          }
           lastError = e.message;
-          continue;
         }
-        throw e;
       }
     }
   }
 
-  throw new Error(lastError || 'Ningún modelo disponible con esta clave.');
+  throw new Error(lastError);
 }
+
 
 /* ── Mostrar notif dot al inicio ── */
 setTimeout(() => {
