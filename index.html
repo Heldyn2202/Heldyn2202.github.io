@@ -2099,7 +2099,7 @@ async function hdSend() {
 
 /* ── Llamar a Gemini API ── */
 async function hdCallGemini() {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${HD_STATE.apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${HD_STATE.apiKey}`;
 
   // Construir mensajes con system prompt integrado al primer user message
   const contents = HD_STATE.history.map((m, i) => {
