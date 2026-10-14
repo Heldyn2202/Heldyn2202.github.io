@@ -2097,16 +2097,26 @@ async function hdSend() {
   }
 }
 
-/* ── Llamar a Gemini API ── */
+/* ── Llamar a Gemini API (con soporte OAuth + REST key) ── */
 async function hdCallGemini() {
-  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${HD_STATE.apiKey}`;
+  const key      = HD_STATE.apiKey;
+  const isOAuth  = key.startsWith('AQ.') || key.startsWith('ya29.');
 
-  // Construir mensajes con system prompt integrado al primer user message
+  /* Lista de modelos a intentar en orden */
+  const MODELS = [
+    'gemini-1.5-flash',
+    'gemini-1.5-flash-latest',
+    'gemini-1.5-pro',
+    'gemini-pro',
+    'gemini-1.0-pro',
+  ];
+
+  /* Construir contenido con system prompt */
   const contents = HD_STATE.history.map((m, i) => {
     if (i === 0 && m.role === 'user') {
       return {
         role: 'user',
-        parts: [{ text: `[INSTRUCCIONES DEL SISTEMA - SIEMPRE SIGUE ESTAS REGLAS]:\n${HD_CONFIG.SYSTEM_PROMPT}\n\n[PREGUNTA DEL USUARIO]:\n${m.parts[0].text}` }]
+        parts: [{ text: `[INSTRUCCIONES DEL SISTEMA]:\n${HD_CONFIG.SYSTEM_PROMPT}\n\n[PREGUNTA]:\n${m.parts[0].text}` }]
       };
     }
     return m;
@@ -2114,11 +2124,7 @@ async function hdCallGemini() {
 
   const body = {
     contents,
-    generationConfig: {
-      temperature     : 0.8,
-      maxOutputTokens : 512,
-      topP            : 0.9,
-    },
+    generationConfig: { temperature: 0.8, maxOutputTokens: 512, topP: 0.9 },
     safetySettings: [
       { category: 'HARM_CATEGORY_HARASSMENT',        threshold: 'BLOCK_ONLY_HIGH' },
       { category: 'HARM_CATEGORY_HATE_SPEECH',       threshold: 'BLOCK_ONLY_HIGH' },
@@ -2127,12 +2133,48 @@ async function hdCallGemini() {
     ],
   };
 
-  const res  = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-  const data = await res.json();
+  let lastError = null;
 
-  if (!res.ok) throw new Error(data.error?.message || `HTTP ${res.status}`);
+  /* Intentar cada modelo hasta que uno funcione */
+  for (const model of MODELS) {
+    for (const ver of ['v1beta', 'v1']) {
+      try {
+        const url = isOAuth
+          ? `https://generativelanguage.googleapis.com/${ver}/models/${model}:generateContent`
+          : `https://generativelanguage.googleapis.com/${ver}/models/${model}:generateContent?key=${key}`;
 
-  return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || null;
+        const headers = { 'Content-Type': 'application/json' };
+        if (isOAuth) headers['Authorization'] = `Bearer ${key}`;
+
+        const res  = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body) });
+        const data = await res.json();
+
+        if (res.ok) {
+          console.log(`HD: usando ${ver}/${model}`);
+          return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || null;
+        }
+
+        /* Si el modelo no existe, seguir con el siguiente */
+        const errMsg = data.error?.message || '';
+        if (errMsg.includes('not found') || errMsg.includes('not supported') || res.status === 404) {
+          lastError = errMsg;
+          continue;
+        }
+
+        /* Error real (auth, cuota, etc.) – lanzar inmediatamente */
+        throw new Error(errMsg || `HTTP ${res.status}`);
+
+      } catch (e) {
+        if (e.message?.includes('not found') || e.message?.includes('not supported')) {
+          lastError = e.message;
+          continue;
+        }
+        throw e;
+      }
+    }
+  }
+
+  throw new Error(lastError || 'Ningún modelo disponible con esta clave.');
 }
 
 /* ── Mostrar notif dot al inicio ── */
