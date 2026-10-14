@@ -1830,7 +1830,7 @@ sections.forEach(s => sectionObserver.observe(s));
     <div class="hd-header-avatar">HD</div>
     <div class="hd-header-info">
       <h4>HD · Asistente Virtual</h4>
-      <p><span class="hd-online-dot"></span> En línea · Powered by Gemini AI</p>
+      <p><span class="hd-online-dot"></span> En línea · Powered by Groq AI ⚡</p>
     </div>
     <div class="hd-header-actions">
       <button class="hd-header-btn" onclick="hdClearChat()" title="Limpiar chat">
@@ -1844,11 +1844,11 @@ sections.forEach(s => sectionObserver.observe(s));
 
   <!-- Banner de API key no configurada -->
   <div id="hd-apikey-banner">
-    ⚠️ Falta tu API Key de Gemini para activar la IA.<br>
-    Consíguela gratis en <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a> y pégala abajo.
+    ⚡ Falta tu API Key de Groq para activar la IA.<br>
+    Consíguela <strong>gratis</strong> en <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a> y pégala abajo.
   </div>
   <div id="hd-apikey-form" style="display:none;">
-    <input id="hd-apikey-input" type="password" placeholder="AIza..." autocomplete="off" />
+    <input id="hd-apikey-input" type="password" placeholder="gsk_..." autocomplete="off" />
     <button id="hd-apikey-save" onclick="hdSaveApiKey()">Guardar</button>
   </div>
 
@@ -1879,17 +1879,18 @@ sections.forEach(s => sectionObserver.observe(s));
 <!-- ── Script del Chatbot ── -->
 <script>
 /* ============================================================
-   CHATBOT HD – Asistente Virtual con Gemini AI
+   CHATBOT HD – Asistente Virtual con Groq AI ⚡
    ──────────────────────────────────────────────────────────
-   ✏️ EDITAR: Pega tu API Key de Gemini aquí para que funcione
+   ✏️ EDITAR: Pega tu API Key de Groq aquí para que funcione
    sin necesidad de escribirla cada vez que abras el sitio.
-   Consíguela gratis en: https://aistudio.google.com/app/apikey
+   Consíguela GRATIS en: https://console.groq.com/keys
+   (No requiere tarjeta de crédito)
 ============================================================ */
 
 /* ── Config ── */
 const HD_CONFIG = {
-  // ✏️ EDITAR: Pega tu API Key aquí (o déjala vacía y la escribes en el chat)
-  GEMINI_API_KEY: '',
+  // ✏️ EDITAR: Pega tu API Key de Groq aquí (empieza con gsk_...)
+  GROQ_API_KEY: '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',
 
   // ✏️ EDITAR: Información sobre ti que el bot usará como contexto
   SYSTEM_PROMPT: `Eres HD, el asistente virtual inteligente del portafolio profesional de Heldyn Diaz.
@@ -1936,8 +1937,8 @@ ESTADO ACTUAL:
 const HD_STATE = {
   open: false,
   loading: false,
-  history: [], // { role: 'user'|'model', parts: [{text}] }
-  apiKey: HD_CONFIG.GEMINI_API_KEY || localStorage.getItem('hd_gemini_key') || '',
+  apiKey: HD_CONFIG.GROQ_API_KEY || localStorage.getItem('hd_groq_key') || '',
+  history: [], // { role: 'user'|'assistant', content: '...' }
 };
 
 /* ── Toggle ventana ── */
@@ -1969,7 +1970,7 @@ function hdSaveApiKey() {
   const val = document.getElementById('hd-apikey-input').value.trim();
   if (!val) return;
   HD_STATE.apiKey = val;
-  localStorage.setItem('hd_gemini_key', val);
+  localStorage.setItem('hd_groq_key', val);
   hdCheckApiKey();
   document.getElementById('hd-apikey-input').value = '';
   hdAddMsg('bot', '✅ ¡API Key guardada! Ahora estoy listo para responder tus preguntas. ¿En qué puedo ayudarte?');
@@ -2068,27 +2069,27 @@ async function hdSend() {
   document.getElementById('hd-suggestions').style.display = 'none';
 
   // Guardar en historial
-  HD_STATE.history.push({ role: 'user', parts: [{ text }] });
+  HD_STATE.history.push({ role: 'user', content: text });
 
   // Mostrar typing indicator
   const typingEl = hdAddMsg('bot', '', true);
 
   try {
-    const response = await hdCallGemini();
+    const response = await hdCallGroq();
     typingEl.remove();
 
     if (response) {
       hdAddMsg('bot', response);
-      HD_STATE.history.push({ role: 'model', parts: [{ text: response }] });
+      HD_STATE.history.push({ role: 'assistant', content: response });
     } else {
       hdAddMsg('bot', '⚠️ No pude obtener una respuesta. Intenta de nuevo.');
     }
   } catch (err) {
     typingEl.remove();
     console.error('HD Error:', err);
-    const msg = err.message?.includes('API_KEY') || err.message?.includes('400')
-      ? '🔑 API Key inválida. Verifica que sea correcta en <a href="https://aistudio.google.com/app/apikey" target="_blank">AI Studio</a>.'
-      : `⚠️ Error al conectar con la IA: ${err.message || 'desconocido'}. ¿Tienes internet?`;
+    const msg = err.message?.includes('401') || err.message?.includes('invalid_api_key') || err.message?.includes('API_KEY')
+      ? '🔑 API Key inválida. Verifica que sea correcta en <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a>.'
+      : `⚠️ Error al conectar con Groq: ${err.message || 'desconocido'}. ¿Tienes internet?`;
     hdAddMsg('bot', msg);
   } finally {
     HD_STATE.loading = false;
@@ -2097,96 +2098,73 @@ async function hdSend() {
   }
 }
 
-/* ── Llamar a Gemini API (soporta AIza + AQ. keys) ── */
-async function hdCallGemini() {
+/* ── Llamar a Groq API (rápido, gratuito, compatible con OpenAI) ── */
+async function hdCallGroq() {
   const key = HD_STATE.apiKey;
 
-  /* Modelos disponibles en orden de preferencia (2025-2026) */
+  /* Modelos Groq activos (octubre 2026) */
   const MODELS = [
-    'gemini-2.0-flash',
-    'gemini-2.0-flash-exp',
-    'gemini-2.5-flash',
-    'gemini-1.5-flash',
-    'gemini-1.5-flash-latest',
-    'gemini-1.5-pro',
-    'gemini-1.0-pro',
-    'gemini-pro',
+    'llama-3.3-70b-versatile',   // Flagship – mejor calidad
+    'llama-3.1-8b-instant',      // Ultra rápido – fallback
+    'openai/gpt-oss-20b',        // Alternativa rápida
   ];
 
-  /* Estrategias de autenticación a probar:
-     Las claves AQ. pueden funcionar tanto como ?key= como Bearer token */
-  const AUTH_STRATEGIES = key.startsWith('AQ.') ? [
-    { asParam: true,  asBearer: false }, // AQ. como ?key= (nativo)
-    { asParam: false, asBearer: true  }, // AQ. como Bearer token
-    { asParam: true,  asBearer: true  }, // Ambos a la vez
-  ] : [
-    { asParam: true,  asBearer: false }, // AIza... solo como ?key=
+  /* Construir mensajes con system prompt (formato OpenAI) */
+  const messages = [
+    { role: 'system', content: HD_CONFIG.SYSTEM_PROMPT },
+    ...HD_STATE.history
   ];
-
-  /* Construir contenido con system prompt */
-  const contents = HD_STATE.history.map((m, i) => {
-    if (i === 0 && m.role === 'user') {
-      return {
-        role: 'user',
-        parts: [{ text: `[INSTRUCCIONES DEL SISTEMA]:\n${HD_CONFIG.SYSTEM_PROMPT}\n\n[PREGUNTA]:\n${m.parts[0].text}` }]
-      };
-    }
-    return m;
-  });
-
-  const body = {
-    contents,
-    generationConfig: { temperature: 0.8, maxOutputTokens: 512, topP: 0.9 },
-    safetySettings: [
-      { category: 'HARM_CATEGORY_HARASSMENT',        threshold: 'BLOCK_ONLY_HIGH' },
-      { category: 'HARM_CATEGORY_HATE_SPEECH',       threshold: 'BLOCK_ONLY_HIGH' },
-      { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_ONLY_HIGH' },
-      { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' },
-    ],
-  };
 
   let lastError = 'Sin respuesta de la API';
 
-  for (const strategy of AUTH_STRATEGIES) {
-    for (const ver of ['v1beta', 'v1']) {
-      for (const model of MODELS) {
-        try {
-          const base = `https://generativelanguage.googleapis.com/${ver}/models/${model}:generateContent`;
-          const url  = strategy.asParam ? `${base}?key=${key}` : base;
-          const headers = { 'Content-Type': 'application/json' };
-          if (strategy.asBearer) headers['Authorization'] = `Bearer ${key}`;
+  for (const model of MODELS) {
+    try {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${key}`,
+        },
+        body: JSON.stringify({
+          model,
+          messages,
+          temperature: 0.8,
+          max_tokens: 512,
+          top_p: 0.9,
+        }),
+      });
 
-          const res  = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body) });
-          const data = await res.json();
+      const data = await res.json();
 
-          if (res.ok) {
-            console.log(`✅ HD Bot: ${ver}/${model} [param:${strategy.asParam} bearer:${strategy.asBearer}]`);
-            return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || null;
-          }
-
-          const errMsg = data.error?.message || `HTTP ${res.status}`;
-
-          /* Modelo no disponible → probar el siguiente */
-          if (errMsg.includes('not found') || errMsg.includes('not supported') || res.status === 404) {
-            lastError = errMsg; continue;
-          }
-          /* Error de autenticación → probar siguiente estrategia */
-          if (res.status === 401 || res.status === 403 || errMsg.includes('API_KEY') || errMsg.includes('UNAUTHENTICATED')) {
-            lastError = errMsg; break;
-          }
-          /* Cualquier otro error real → lanzar */
-          throw new Error(errMsg);
-
-        } catch (e) {
-          if (e.message?.includes('not found') || e.message?.includes('not supported')) {
-            lastError = e.message; continue;
-          }
-          if (e.name === 'TypeError' && e.message.includes('fetch')) {
-            throw new Error('Sin conexión a internet');
-          }
-          lastError = e.message;
-        }
+      if (res.ok) {
+        console.log(`✅ HD Bot (Groq): ${model}`);
+        return data.choices?.[0]?.message?.content?.trim() || null;
       }
+
+      const errMsg = data.error?.message || `HTTP ${res.status}`;
+
+      /* Modelo no disponible o deprecado → probar el siguiente */
+      if (res.status === 404 || errMsg.includes('model') || errMsg.includes('not found') || errMsg.includes('decommissioned')) {
+        lastError = errMsg; continue;
+      }
+      /* Error de autenticación → no tiene sentido seguir */
+      if (res.status === 401 || errMsg.includes('invalid_api_key') || errMsg.includes('auth')) {
+        throw new Error('401: API Key inválida');
+      }
+      /* Rate limit → lanzar con mensaje claro */
+      if (res.status === 429) {
+        throw new Error('Rate limit alcanzado. Espera unos segundos e intenta de nuevo.');
+      }
+      throw new Error(errMsg);
+
+    } catch (e) {
+      if (e.message?.includes('model') || e.message?.includes('not found')) {
+        lastError = e.message; continue;
+      }
+      if (e.name === 'TypeError' && e.message.includes('fetch')) {
+        throw new Error('Sin conexión a internet');
+      }
+      throw e;
     }
   }
 
