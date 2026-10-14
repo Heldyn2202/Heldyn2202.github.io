@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- =====================================================
-       SEO META TAGS
-  ====================================================== -->
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="pragma" content="no-cache" />
+
   <title>Heldyn Diaz | DevOps & Infraestructura | Portafolio</title>
   <meta name="description" content="Portafolio profesional de Heldyn Diaz – Especialista en Infraestructura, DevOps, Automatización y Desarrollo Web. Ingeniería en Informática." />
   <meta name="keywords" content="DevOps, Infraestructura, n8n, Docker, Proxmox, Zabbix, Grafana, PHP, Automatización, Portafolio" />
@@ -15,31 +16,14 @@
   <meta property="og:description" content="Especialista en Infraestructura, DevOps y Automatización." />
   <meta property="og:type" content="website" />
 
-  <!-- =====================================================
-       GOOGLE FONTS
-  ====================================================== -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 
-  <!-- =====================================================
-       TAILWIND CSS CDN
-  ====================================================== -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- =====================================================
-       FONT AWESOME 6 (iconos)
-  ====================================================== -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <!-- =====================================================
-       AOS – Animate On Scroll
-  ====================================================== -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 
-  <!-- =====================================================
-       TAILWIND CONFIG EXTENDIDA
-  ====================================================== -->
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -65,11 +49,7 @@
     };
   </script>
 
-  <!-- =====================================================
-       ESTILOS PERSONALIZADOS
-  ====================================================== -->
   <style>
-    /* ── Reset & base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -79,7 +59,6 @@
       overflow-x: hidden;
     }
 
-    /* ── Canvas de partículas (fondo fijo) ── */
     #particles-canvas {
       position: fixed;
       top: 0; left: 0;
@@ -88,15 +67,12 @@
       pointer-events: none;
     }
 
-    /* ── Todo el contenido sobre el canvas ── */
     .layer { position: relative; z-index: 1; }
 
-    /* ── Scrollbar personalizada ── */
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: #020b10; }
     ::-webkit-scrollbar-thumb { background: #00c8d4; border-radius: 4px; }
 
-    /* ── Glassmorphism base ── */
     .glass {
       background: rgba(255,255,255,0.035);
       backdrop-filter: blur(14px);
@@ -112,7 +88,6 @@
       border-radius: 0.75rem;
     }
 
-    /* ── Texto degradado ── */
     .text-gradient {
       background: linear-gradient(130deg, #00c8d4 0%, #48f8fb 55%, #90fffd 100%);
       -webkit-background-clip: text;
@@ -120,7 +95,6 @@
       background-clip: text;
     }
 
-    /* ── Botón primario ── */
     .btn-primary {
       display: inline-flex;
       align-items: center;
@@ -152,7 +126,6 @@
       box-shadow: 0 10px 30px rgba(0,200,212,0.4);
     }
 
-    /* ── Botón secundario (outline) ── */
     .btn-outline {
       display: inline-flex;
       align-items: center;
@@ -174,7 +147,6 @@
       box-shadow: 0 10px 28px rgba(0,200,212,0.18);
     }
 
-    /* ── Navbar ── */
     #navbar {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -210,7 +182,6 @@
     .nav-link.active { color: #00c8d4; }
     .nav-link.active::after { width: 100%; }
 
-    /* ── Menú móvil ── */
     #mobile-menu {
       display: none;
       background: rgba(2,11,16,0.97);
@@ -220,7 +191,6 @@
     }
     #mobile-menu.open { display: block; }
 
-    /* ── Hero ── */
     .hero-section {
       min-height: 100vh;
       display: flex;
@@ -262,7 +232,6 @@
     }
     .float-anim { animation: float-y 3.5s ease-in-out infinite; }
 
-    /* ── Section común ── */
     .section { padding: 5.5rem 1.5rem; }
     .sec-label {
       font-family: 'JetBrains Mono', monospace;
@@ -284,7 +253,6 @@
       margin: 0.7rem auto 0.9rem;
     }
 
-    /* ── Skill card ── */
     .skill-card {
       transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
     }
@@ -312,7 +280,6 @@
       border-color: rgba(0,200,212,0.45);
     }
 
-    /* ── Project card ── */
     .project-card {
       transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
     }
@@ -322,7 +289,6 @@
       box-shadow: 0 28px 65px rgba(0,0,0,0.35);
     }
 
-    /* ── Timeline ── */
     .tl-dot {
       width: 13px; height: 13px;
       border-radius: 50%;
@@ -335,7 +301,6 @@
       margin: 0 auto;
     }
 
-    /* ── Separador de secciones ── */
     .sep {
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(0,200,212,0.2), transparent);
@@ -343,7 +308,6 @@
       max-width: 700px;
     }
 
-    /* ── Contact card ── */
     .contact-row {
       display: flex;
       align-items: center;
@@ -360,10 +324,8 @@
       flex-shrink: 0;
     }
 
-    /* ── Footer ── */
     footer { border-top: 1px solid rgba(0,200,212,0.09); }
 
-    /* ── Responsive hero font ── */
     @media (max-width:480px) {
       .hero-name { font-size: 2.6rem !important; }
     }
@@ -372,18 +334,11 @@
 
 <body class="dark">
 
-<!-- ======================================================
-     CANVAS – Fondo de partículas/red interactiva
-====================================================== -->
 <canvas id="particles-canvas"></canvas>
 
-<!-- ======================================================
-     NAVBAR
-====================================================== -->
 <nav id="navbar" class="layer">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
 
-    <!-- Logo -->
     <a href="#hero" class="flex items-center gap-2 no-underline group">
       <div class="w-9 h-9 glass-strong flex items-center justify-center">
         <span class="font-mono font-bold text-xs text-brand-400 group-hover:text-brand-300 transition-colors">&lt;HD&gt;</span>
@@ -391,7 +346,6 @@
       <span class="hidden sm:block text-white font-bold text-sm group-hover:text-brand-400 transition-colors">Heldyn Diaz</span>
     </a>
 
-    <!-- Links escritorio -->
     <div class="hidden md:flex items-center gap-8">
       <a href="#about"    class="nav-link">Sobre Mí</a>
       <a href="#skills"   class="nav-link">Skills</a>
@@ -399,18 +353,15 @@
       <a href="#contact"  class="nav-link">Contacto</a>
     </div>
 
-    <!-- CTA escritorio -->
     <a href="#contact" class="btn-primary hidden md:inline-flex text-sm px-5 py-2.5">
       <i class="fa-solid fa-paper-plane text-xs"></i> Contáctame
     </a>
 
-    <!-- Hamburguesa móvil -->
     <button id="menu-toggle" class="md:hidden p-2 text-slate-300 hover:text-brand-400 transition-colors" aria-label="Menú">
       <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
     </button>
   </div>
 
-  <!-- Menú desplegable móvil -->
   <div id="mobile-menu">
     <div class="px-6 py-4 flex flex-col gap-3">
       <a href="#about"    class="nav-link py-2 border-b border-white/5" onclick="closeMobileMenu()">Sobre Mí</a>
@@ -424,31 +375,24 @@
   </div>
 </nav>
 
-<!-- ======================================================
-     HERO SECTION
-====================================================== -->
 <section id="hero" class="hero-section layer">
 
-  <!-- Badge de estado -->
   <div class="hero-badge" data-aos="fade-down" data-aos-duration="600">
     <span class="hero-dot"></span>
     Disponible para nuevas oportunidades
   </div>
 
-  <!-- Nombre -->
   <h1 class="hero-name font-black leading-none tracking-tight mb-4"
       style="font-size: clamp(3.2rem, 9vw, 6.5rem);"
       data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
     <span class="text-white">Heldyn </span><span class="text-gradient">Diaz</span>
   </h1>
 
-  <!-- Rol / Título -->
   <p class="font-mono text-brand-400 font-semibold text-lg sm:text-xl mb-3 tracking-wide"
      data-aos="fade-up" data-aos-duration="700" data-aos-delay="180">
     DevOps &amp; Infrastructure Engineer
   </p>
 
-  <!-- Descripción corta -->
   <p class="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed"
      data-aos="fade-up" data-aos-duration="700" data-aos-delay="250">
     Estudiante de último trimestre en
@@ -460,7 +404,6 @@
     para construir soluciones escalables y automatizadas de extremo a extremo.
   </p>
 
-  <!-- Botones CTA -->
   <div class="flex flex-col sm:flex-row gap-4 mt-10 justify-center"
        data-aos="fade-up" data-aos-duration="700" data-aos-delay="330">
     <a href="#contact" class="btn-primary text-base px-9 py-3.5">
@@ -471,32 +414,27 @@
     </a>
   </div>
 
-  <!-- Iconos redes sociales -->
   <div class="flex items-center gap-4 mt-8 justify-center"
        data-aos="fade-up" data-aos-duration="700" data-aos-delay="420">
 
-    <!-- GitHub -->
     <a href="https://github.com/Heldyn2202" target="_blank" rel="noopener" aria-label="GitHub"
        class="w-10 h-10 glass flex items-center justify-center text-slate-400
               hover:text-brand-400 hover:border-brand-500 transition-all duration-300 hover:scale-110">
       <i class="fa-brands fa-github text-lg"></i>
     </a>
 
-    <!-- LinkedIn -->
     <a href="https://www.linkedin.com/in/heldyn-diaz-daboin-17306822b" target="_blank" rel="noopener" aria-label="LinkedIn"
        class="w-10 h-10 glass flex items-center justify-center text-slate-400
               hover:text-brand-400 hover:border-brand-500 transition-all duration-300 hover:scale-110">
       <i class="fa-brands fa-linkedin-in text-lg"></i>
     </a>
 
-    <!-- Email -->
     <a href="mailto:heldyndiaz19@gmail.com" aria-label="Email"
        class="w-10 h-10 glass flex items-center justify-center text-slate-400
               hover:text-brand-400 hover:border-brand-500 transition-all duration-300 hover:scale-110">
       <i class="fa-solid fa-envelope text-base"></i>
     </a>
 
-    <!-- WhatsApp -->
     <a href="https://wa.me/584121988817" target="_blank" rel="noopener" aria-label="WhatsApp"
        class="w-10 h-10 glass flex items-center justify-center text-slate-400
               hover:text-brand-400 hover:border-brand-500 transition-all duration-300 hover:scale-110">
@@ -504,16 +442,12 @@
     </a>
   </div>
 
-  <!-- Flecha de scroll -->
   <a href="#about" aria-label="Bajar" class="float-anim mt-16 text-brand-500/50 hover:text-brand-400 transition-colors"
      data-aos="fade-up" data-aos-delay="550">
     <i class="fa-solid fa-chevron-down text-xl"></i>
   </a>
 </section>
 
-<!-- ======================================================
-     SOBRE MÍ / EDUCACIÓN
-====================================================== -->
 <section id="about" class="section layer">
   <div class="max-w-6xl mx-auto">
 
@@ -525,13 +459,10 @@
 
     <div class="grid md:grid-cols-2 gap-10 items-center">
 
-      <!-- Foto de perfil + texto ── izquierda -->
       <div class="glass p-8" data-aos="fade-right" data-aos-duration="800">
 
-        <!-- Foto de perfil -->
         <div class="flex items-center gap-5 mb-7">
           <div class="relative flex-shrink-0">
-            <!-- Marco con glow -->
             <div style="
               width:96px; height:96px;
               border-radius:50%;
@@ -546,11 +477,9 @@
                 onerror="this.style.display='none'; this.parentElement.parentElement.querySelector('.avatar-fallback').style.display='flex';"
               />
             </div>
-            <!-- Fallback si no carga la imagen -->
             <div class="avatar-fallback" style="display:none; width:90px; height:90px; border-radius:50%; background:rgba(0,200,212,0.1); border:2px solid rgba(0,200,212,0.3); align-items:center; justify-content:center; position:absolute; top:3px; left:3px;">
               <span style="font-family:'JetBrains Mono',monospace; font-weight:700; color:#00c8d4; font-size:1.6rem;">HD</span>
             </div>
-            <!-- Indicador de estado online -->
             <div style="position:absolute; bottom:4px; right:4px; width:14px; height:14px; background:#22c55e; border-radius:50%; border:2px solid #020b10; box-shadow:0 0 8px rgba(34,197,94,0.6);"></div>
           </div>
           <div>
@@ -579,7 +508,6 @@
           flujo automatizado.
         </p>
 
-        <!-- Tags de estado rápido -->
         <div class="flex flex-wrap gap-2 mt-7">
           <span class="skill-tag"><i class="fa-solid fa-graduation-cap text-xs"></i> Ing. Informática – Último trimestre</span>
           <span class="skill-tag"><i class="fa-solid fa-location-dot text-xs"></i> Caracas, Venezuela</span>
@@ -587,13 +515,11 @@
         </div>
       </div>
 
-      <!-- Timeline ── derecha -->
       <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="100">
         <p class="sec-label mb-6">Formación &amp; Hitos</p>
 
         <div class="space-y-5">
 
-          <!-- Item 1 -->
           <div class="flex gap-4">
             <div class="flex flex-col items-center" style="width:18px;">
               <div class="tl-dot" style="background:#00c8d4; box-shadow:0 0 12px rgba(0,200,212,0.55);"></div>
@@ -606,7 +532,6 @@
             </div>
           </div>
 
-          <!-- Item 2 -->
           <div class="flex gap-4">
             <div class="flex flex-col items-center" style="width:18px;">
               <div class="tl-dot" style="background:#818cf8; box-shadow:0 0 12px rgba(129,140,248,0.5);"></div>
@@ -619,7 +544,6 @@
             </div>
           </div>
 
-          <!-- Item 3 -->
           <div class="flex gap-4">
             <div class="flex flex-col items-center" style="width:18px;">
               <div class="tl-dot" style="background:#f472b6; box-shadow:0 0 12px rgba(244,114,182,0.5);"></div>
@@ -631,18 +555,15 @@
             </div>
           </div>
 
-        </div><!-- /space-y-5 -->
+        </div>
       </div>
 
-    </div><!-- /grid -->
+    </div>
   </div>
 </section>
 
 <div class="sep layer"></div>
 
-<!-- ======================================================
-     SKILLS / STACK TÉCNICO
-====================================================== -->
 <section id="skills" class="section layer">
   <div class="max-w-6xl mx-auto">
 
@@ -657,7 +578,6 @@
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      <!-- ── 1. Automatización ── -->
       <div class="skill-card glass p-6" data-aos="fade-up" data-aos-delay="0">
         <div class="flex items-center gap-3 mb-5">
           <div class="w-11 h-11 flex items-center justify-center rounded-xl"
@@ -677,7 +597,6 @@
         </div>
       </div>
 
-      <!-- ── 2. Infraestructura ── -->
       <div class="skill-card glass p-6" data-aos="fade-up" data-aos-delay="70">
         <div class="flex items-center gap-3 mb-5">
           <div class="w-11 h-11 flex items-center justify-center rounded-xl"
@@ -705,7 +624,6 @@
         </div>
       </div>
 
-      <!-- ── 3. Redes & SysAdmin ── -->
       <div class="skill-card glass p-6" data-aos="fade-up" data-aos-delay="140">
         <div class="flex items-center gap-3 mb-5">
           <div class="w-11 h-11 flex items-center justify-center rounded-xl"
@@ -736,7 +654,6 @@
         </div>
       </div>
 
-      <!-- ── 4. Monitoreo ── -->
       <div class="skill-card glass p-6" data-aos="fade-up" data-aos-delay="210">
         <div class="flex items-center gap-3 mb-5">
           <div class="w-11 h-11 flex items-center justify-center rounded-xl"
@@ -764,7 +681,6 @@
         </div>
       </div>
 
-      <!-- ── 5. Desarrollo Web ── -->
       <div class="skill-card glass p-6" data-aos="fade-up" data-aos-delay="280">
         <div class="flex items-center gap-3 mb-5">
           <div class="w-11 h-11 flex items-center justify-center rounded-xl"
@@ -795,7 +711,6 @@
         </div>
       </div>
 
-      <!-- ── 6. Metodología ── -->
       <div class="skill-card glass p-6" data-aos="fade-up" data-aos-delay="350">
         <div class="flex items-center gap-3 mb-5">
           <div class="w-11 h-11 flex items-center justify-center rounded-xl"
@@ -823,15 +738,12 @@
         </div>
       </div>
 
-    </div><!-- /grid skills -->
+    </div>
   </div>
 </section>
 
 <div class="sep layer"></div>
 
-<!-- ======================================================
-     PROYECTOS / HOME LAB
-====================================================== -->
 <section id="projects" class="section layer">
   <div class="max-w-6xl mx-auto">
 
@@ -846,7 +758,6 @@
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      <!-- Proyecto 1 -->
       <div class="project-card glass" data-aos="fade-up" data-aos-delay="0">
         <div class="p-6">
           <div class="flex items-start justify-between mb-4">
@@ -878,7 +789,6 @@
         </div>
       </div>
 
-      <!-- Proyecto 2 -->
       <div class="project-card glass" data-aos="fade-up" data-aos-delay="70">
         <div class="p-6">
           <div class="flex items-start justify-between mb-4">
@@ -910,7 +820,6 @@
         </div>
       </div>
 
-      <!-- Proyecto 3 -->
       <div class="project-card glass" data-aos="fade-up" data-aos-delay="140">
         <div class="p-6">
           <div class="flex items-start justify-between mb-4">
@@ -948,7 +857,6 @@
         </div>
       </div>
 
-      <!-- Proyecto 4 -->
       <div class="project-card glass" data-aos="fade-up" data-aos-delay="210">
         <div class="p-6">
           <div class="flex items-start justify-between mb-4">
@@ -986,7 +894,6 @@
         </div>
       </div>
 
-      <!-- Proyecto 5 -->
       <div class="project-card glass" data-aos="fade-up" data-aos-delay="280">
         <div class="p-6">
           <div class="flex items-start justify-between mb-4">
@@ -1024,7 +931,6 @@
         </div>
       </div>
 
-      <!-- Placeholder – próximo proyecto -->
       <div class="project-card" data-aos="fade-up" data-aos-delay="350"
            style="border:1.5px dashed rgba(0,200,212,0.2); border-radius:1rem;
                   display:flex; align-items:center; justify-content:center; min-height:230px;">
@@ -1037,15 +943,12 @@
         </div>
       </div>
 
-    </div><!-- /grid proyectos -->
+    </div>
   </div>
 </section>
 
 <div class="sep layer"></div>
 
-<!-- ======================================================
-     CONTACTO
-====================================================== -->
 <section id="contact" class="section layer">
   <div class="max-w-4xl mx-auto">
 
@@ -1061,12 +964,10 @@
     <div class="glass p-8 sm:p-12" data-aos="fade-up" data-aos-delay="100">
       <div class="grid sm:grid-cols-2 gap-8">
 
-        <!-- Info de contacto -->
         <div>
           <h3 class="text-white font-bold text-xl mb-7">Información de Contacto</h3>
           <div class="space-y-2">
 
-            <!-- Teléfono -->
             <div class="contact-row">
               <div class="contact-icon glass-strong">
                 <i class="fa-solid fa-phone text-brand-400"></i>
@@ -1079,7 +980,6 @@
               </div>
             </div>
 
-            <!-- Correo -->
             <div class="contact-row">
               <div class="contact-icon glass-strong">
                 <i class="fa-solid fa-envelope text-brand-400"></i>
@@ -1092,7 +992,6 @@
               </div>
             </div>
 
-            <!-- GitHub -->
             <div class="contact-row">
               <div class="contact-icon glass-strong">
                 <i class="fa-brands fa-github text-brand-400 text-lg"></i>
@@ -1105,7 +1004,6 @@
               </div>
             </div>
 
-            <!-- LinkedIn -->
             <div class="contact-row">
               <div class="contact-icon glass-strong">
                 <i class="fa-brands fa-linkedin-in text-brand-400"></i>
@@ -1118,14 +1016,12 @@
               </div>
             </div>
 
-          </div><!-- /space-y-2 -->
+          </div>
         </div>
 
-        <!-- Botones de acción rápida -->
         <div class="flex flex-col gap-4">
           <h3 class="text-white font-bold text-xl mb-1">Acción Rápida</h3>
 
-          <!-- WhatsApp -->
           <a href="https://wa.me/584121988817?text=Hola%20Heldyn%2C%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20conversar%20contigo."
              target="_blank" rel="noopener" id="btn-whatsapp"
              class="btn-primary text-base px-6 py-4 justify-center"
@@ -1134,7 +1030,6 @@
             Enviar WhatsApp
           </a>
 
-          <!-- Correo directo -->
           <a href="mailto:heldyndiaz19@gmail.com?subject=Oportunidad%20de%20colaboraci%C3%B3n&body=Hola%20Heldyn%2C%20"
              id="btn-email"
              class="btn-primary text-base px-6 py-4 justify-center">
@@ -1142,14 +1037,12 @@
             Enviar Correo
           </a>
 
-          <!-- LinkedIn -->
           <a href="https://www.linkedin.com/in/heldyn-diaz-daboin-17306822b" target="_blank" rel="noopener" id="btn-linkedin"
              class="btn-outline text-base px-6 py-4 justify-center">
             <i class="fa-brands fa-linkedin-in"></i>
             Conectar en LinkedIn
           </a>
 
-          <!-- GitHub -->
           <a href="https://github.com/Heldyn2202" target="_blank" rel="noopener" id="btn-github"
              class="btn-outline text-base px-6 py-4 justify-center">
             <i class="fa-brands fa-github text-lg"></i>
@@ -1157,15 +1050,12 @@
           </a>
 
         </div>
-      </div><!-- /grid contacto -->
-    </div><!-- /glass card -->
+      </div>
+    </div>
 
   </div>
 </section>
 
-<!-- ======================================================
-     FOOTER
-====================================================== -->
 <footer class="layer py-8">
   <div class="max-w-6xl mx-auto px-6 text-center">
     <p class="text-slate-600 text-sm font-mono">
@@ -1177,17 +1067,9 @@
   </div>
 </footer>
 
-<!-- ======================================================
-     SCRIPTS
-====================================================== -->
-
-<!-- AOS -->
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
 <script>
-/* ============================================================
-   1. AOS – Animaciones al scroll
-============================================================ */
 AOS.init({
   duration : 680,
   easing   : 'ease-out-cubic',
@@ -1195,17 +1077,11 @@ AOS.init({
   offset   : 55,
 });
 
-/* ============================================================
-   2. NAVBAR – Efecto transparente → sólido al scrollear
-============================================================ */
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 50);
 }, { passive: true });
 
-/* ============================================================
-   3. MENÚ MÓVIL – Toggle hamburguesa / X
-============================================================ */
 const menuToggle = document.getElementById('menu-toggle');
 const mobileMenu = document.getElementById('mobile-menu');
 const menuIcon   = document.getElementById('menu-icon');
@@ -1220,9 +1096,6 @@ function closeMobileMenu() {
   menuIcon.className = 'fa-solid fa-bars text-xl';
 }
 
-/* ============================================================
-   4. ACTIVE NAV LINK al hacer scroll (IntersectionObserver)
-============================================================ */
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('#navbar .nav-link');
 
@@ -1238,16 +1111,12 @@ const sectionObserver = new IntersectionObserver((entries) => {
 
 sections.forEach(s => sectionObserver.observe(s));
 
-/* ============================================================
-   5. PARTÍCULAS – Red interactiva implementada con Canvas API
-============================================================ */
 (function () {
   'use strict';
 
   const canvas = document.getElementById('particles-canvas');
   const ctx    = canvas.getContext('2d');
 
-  /* ── Parámetros ajustables ── */
   const CFG = {
     count      : 85,
     linkDist   : 145,
@@ -1384,13 +1253,7 @@ sections.forEach(s => sectionObserver.observe(s));
 })();
 </script>
 
-
-<!-- ======================================================
-     CHATBOT HD – Asistente Virtual con Gemini AI (CORREGIDO)
-====================================================== -->
-
 <style>
-  /* ── Variables ── */
   :root {
     --hd-brand: #00c8d4;
     --hd-bg: #030f14;
@@ -1399,7 +1262,6 @@ sections.forEach(s => sectionObserver.observe(s));
     --hd-radius: 1.1rem;
   }
 
-  /* ── Burbuja flotante ── */
   #hd-bubble {
     position: fixed;
     bottom: 28px;
@@ -1755,17 +1617,14 @@ sections.forEach(s => sectionObserver.observe(s));
   #hd-apikey-save:hover { background: rgba(251,191,36,0.25); }
 </style>
 
-<!-- ── Burbuja flotante ── -->
 <button id="hd-bubble" aria-label="Abrir asistente HD" onclick="hdToggle()">
   <span class="hd-avatar-text">HD</span>
   <i class="fa-solid fa-xmark hd-close-icon"></i>
   <span id="hd-notif"></span>
 </button>
 
-<!-- ── Ventana del chat ── -->
 <div id="hd-window" role="dialog" aria-label="Chat con HD" aria-modal="true">
 
-  <!-- Header -->
   <div id="hd-header">
     <div class="hd-header-avatar">HD</div>
     <div class="hd-header-info">
@@ -1782,7 +1641,6 @@ sections.forEach(s => sectionObserver.observe(s));
     </div>
   </div>
 
-  <!-- Banner de API key no configurada -->
   <div id="hd-apikey-banner">
     ⚠️ Falta tu API Key de Gemini para activar la IA.<br>
     Consíguela gratis en <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a> y pégala abajo.
@@ -1792,10 +1650,8 @@ sections.forEach(s => sectionObserver.observe(s));
     <button id="hd-apikey-save" onclick="hdSaveApiKey()">Guardar</button>
   </div>
 
-  <!-- Mensajes -->
   <div id="hd-messages"></div>
 
-  <!-- Sugerencias rápidas -->
   <div id="hd-suggestions">
     <button class="hd-chip" onclick="hdSuggest('¿Quién es Heldyn?')">👤 ¿Quién es Heldyn?</button>
     <button class="hd-chip" onclick="hdSuggest('¿Qué tecnologías domina?')">⚙️ Stack técnico</button>
@@ -1803,7 +1659,6 @@ sections.forEach(s => sectionObserver.observe(s));
     <button class="hd-chip" onclick="hdSuggest('¿Cuáles son sus proyectos?')">🗂️ Proyectos</button>
   </div>
 
-  <!-- Input -->
   <div id="hd-input-area">
     <textarea id="hd-input" rows="1" placeholder="Pregúntame sobre Heldyn..." 
               onkeydown="hdKeyDown(event)" oninput="hdAutoResize(this)"></textarea>
@@ -1812,24 +1667,21 @@ sections.forEach(s => sectionObserver.observe(s));
     </button>
   </div>
 
-  <!-- Footer -->
   <div id="hd-footer">HD Assistant · Portafolio de <a href="#hero">Heldyn Diaz</a></div>
 </div>
 
-<!-- ── Script del Chatbot (CORREGIDO) ── -->
 <script>
 /* ============================================================
-   CHATBOT HD – Asistente Virtual con Gemini AI
-   ──────────────────────────────────────────────────────────
-   CORREGIDO para soportar claves AQ. (Vertex AI endpoint)
+   CHATBOT HD – Versión FINAL
+   Endpoint: generativelanguage.googleapis.com (AI Studio)
+   Compatible con claves AIza… y AQ.…
+   La clave se envía como ?key= Y como x-goog-api-key
 ============================================================ */
 
-/* ── Config ── */
 const HD_CONFIG = {
-  // ✏️ PEGA TU CLAVE AQUÍ
+  // ✏️ TU CLAVE AQUÍ
   GEMINI_API_KEY: 'AQ.Ab8RN6J6t7KERCp5FsJM9RwzX5lvG8xV9jhwGP9u2jtuGSAYcw',
 
-  // Contexto del sistema (puedes editarlo si quieres)
   SYSTEM_PROMPT: `Eres HD, el asistente virtual inteligente del portafolio profesional de Heldyn Diaz.
 Tu personalidad: amigable, profesional, conciso y entusiasta de la tecnología.
 Habla siempre en español (a menos que te hablen en otro idioma).
@@ -1869,7 +1721,6 @@ ESTADO ACTUAL:
 - Open to Work en roles de DevOps, SysAdmin, Infraestructura, Automatización o Desarrollo Full-Stack`
 };
 
-/* ── Estado ── */
 const HD_STATE = {
   open: false,
   loading: false,
@@ -1877,7 +1728,6 @@ const HD_STATE = {
   apiKey: HD_CONFIG.GEMINI_API_KEY || localStorage.getItem('hd_gemini_key') || '',
 };
 
-/* ── Toggle ventana ── */
 function hdToggle() {
   HD_STATE.open = !HD_STATE.open;
   document.getElementById('hd-window').classList.toggle('open', HD_STATE.open);
@@ -1891,7 +1741,6 @@ function hdToggle() {
   }
 }
 
-/* ── Verificar API Key ── */
 function hdCheckApiKey() {
   const banner  = document.getElementById('hd-apikey-banner');
   const form    = document.getElementById('hd-apikey-form');
@@ -1901,7 +1750,6 @@ function hdCheckApiKey() {
   document.getElementById('hd-send').disabled = missing;
 }
 
-/* ── Guardar API Key ── */
 function hdSaveApiKey() {
   const val = document.getElementById('hd-apikey-input').value.trim();
   if (!val) return;
@@ -1912,7 +1760,6 @@ function hdSaveApiKey() {
   hdAddMsg('bot', '✅ ¡API Key guardada! Ahora estoy listo para responder tus preguntas. ¿En qué puedo ayudarte?');
 }
 
-/* ── Mensaje de bienvenida ── */
 function hdWelcome() {
   hdAddMsg('bot',
     `¡Hola! 👋 Soy <strong>HD</strong>, el asistente virtual del portafolio de <strong>Heldyn Diaz</strong>.\n\n` +
@@ -1920,7 +1767,6 @@ function hdWelcome() {
   );
 }
 
-/* ── Agregar mensaje al DOM ── */
 function hdAddMsg(role, text, isTyping = false) {
   const container = document.getElementById('hd-messages');
   const wrapper   = document.createElement('div');
@@ -1949,7 +1795,6 @@ function hdAddMsg(role, text, isTyping = false) {
   return wrapper;
 }
 
-/* ── Formatear texto Markdown básico ── */
 function hdFormatText(text) {
   return text
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -1959,19 +1804,16 @@ function hdFormatText(text) {
     .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
 }
 
-/* ── Chips de sugerencia ── */
 function hdSuggest(text) {
   document.getElementById('hd-input').value = text;
   hdSend();
 }
 
-/* ── Auto-resize textarea ── */
 function hdAutoResize(el) {
   el.style.height = '38px';
   el.style.height = Math.min(el.scrollHeight, 100) + 'px';
 }
 
-/* ── Enter para enviar ── */
 function hdKeyDown(e) {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault();
@@ -1979,14 +1821,12 @@ function hdKeyDown(e) {
   }
 }
 
-/* ── Limpiar chat ── */
 function hdClearChat() {
   HD_STATE.history = [];
   document.getElementById('hd-messages').innerHTML = '';
   hdWelcome();
 }
 
-/* ── Enviar mensaje ── */
 async function hdSend() {
   if (HD_STATE.loading || !HD_STATE.apiKey) return;
   const inputEl = document.getElementById('hd-input');
@@ -2031,26 +1871,24 @@ async function hdSend() {
 }
 
 /* ============================================================
-   LLAMADA A GEMINI API – CORREGIDA
-   Soporta claves AIza (endpoint antiguo) y AQ. (Vertex AI)
+   LLAMADA A GEMINI – Endpoint AI Studio (generativelanguage)
+   La clave se envía de DOS formas para máxima compatibilidad:
+     1) ?key=TU_CLAVE      (query param)
+     2) x-goog-api-key: TU_CLAVE  (header oficial)
 ============================================================ */
 async function hdCallGemini() {
   const key = HD_STATE.apiKey;
 
-  // Detectar tipo de clave
-  const isAQ = key.startsWith('AQ.');
-
-  // Modelos disponibles (según el tipo de clave)
-  const MODELS = isAQ
-    ? ['gemini-2.0-flash-001', 'gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-1.5-pro']
-    : ['gemini-2.0-flash', 'gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-pro'];
-
-  // Estrategia: la clave AQ. solo funciona con ?key=
-  const AUTH_STRATEGIES = [
-    { asParam: true, asBearer: false }
+  const MODELS = [
+    'gemini-2.0-flash',
+    'gemini-2.0-flash-001',
+    'gemini-2.5-flash',
+    'gemini-1.5-flash',
+    'gemini-1.5-flash-latest',
+    'gemini-1.5-pro',
+    'gemini-pro',
   ];
 
-  // Construir contenido con system prompt
   const contents = HD_STATE.history.map((m, i) => {
     if (i === 0 && m.role === 'user') {
       return {
@@ -2074,46 +1912,44 @@ async function hdCallGemini() {
 
   let lastError = 'Sin respuesta de la API';
 
-  for (const strategy of AUTH_STRATEGIES) {
-    for (const ver of ['v1beta', 'v1']) {
-      for (const model of MODELS) {
-        try {
-          // *** CAMBIO IMPORTANTE: endpoint según tipo de clave ***
-          const base = isAQ
-            ? `https://aiplatform.googleapis.com/${ver}/publishers/google/models/${model}:generateContent`
-            : `https://generativelanguage.googleapis.com/${ver}/models/${model}:generateContent`;
+  for (const ver of ['v1beta', 'v1']) {
+    for (const model of MODELS) {
+      try {
+        const base = `https://generativelanguage.googleapis.com/${ver}/models/${model}:generateContent`;
+        const url  = `${base}?key=${encodeURIComponent(key)}`;
 
-          const url  = strategy.asParam ? `${base}?key=${key}` : base;
-          const headers = { 'Content-Type': 'application/json' };
-          if (strategy.asBearer) headers['Authorization'] = `Bearer ${key}`;
+        const headers = {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': key,
+        };
 
-          const res  = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body) });
-          const data = await res.json();
+        const res  = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body) });
+        const data = await res.json();
 
-          if (res.ok) {
-            console.log(`✅ HD Bot: ${ver}/${model} [${isAQ ? 'Vertex AI' : 'AI Studio'}]`);
-            return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || null;
-          }
-
-          const errMsg = data.error?.message || `HTTP ${res.status}`;
-
-          if (errMsg.includes('not found') || errMsg.includes('not supported') || res.status === 404) {
-            lastError = errMsg; continue;
-          }
-          if (res.status === 401 || res.status === 403 || errMsg.includes('API_KEY') || errMsg.includes('UNAUTHENTICATED')) {
-            lastError = errMsg; break;
-          }
-          throw new Error(errMsg);
-
-        } catch (e) {
-          if (e.message?.includes('not found') || e.message?.includes('not supported')) {
-            lastError = e.message; continue;
-          }
-          if (e.name === 'TypeError' && e.message.includes('fetch')) {
-            throw new Error('Sin conexión a internet');
-          }
-          lastError = e.message;
+        if (res.ok) {
+          console.log(`✅ HD Bot: ${ver}/${model}`);
+          return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || null;
         }
+
+        const errMsg = data.error?.message || `HTTP ${res.status}`;
+        console.warn(`HD Bot intento fallido ${ver}/${model}:`, errMsg);
+
+        if (errMsg.includes('not found') || errMsg.includes('not supported') || res.status === 404) {
+          lastError = errMsg; continue;
+        }
+        if (res.status === 401 || res.status === 403 || errMsg.includes('API_KEY') || errMsg.includes('UNAUTHENTICATED')) {
+          lastError = errMsg; break;
+        }
+        throw new Error(errMsg);
+
+      } catch (e) {
+        if (e.message?.includes('not found') || e.message?.includes('not supported')) {
+          lastError = e.message; continue;
+        }
+        if (e.name === 'TypeError' && e.message.includes('fetch')) {
+          throw new Error('Sin conexión a internet');
+        }
+        lastError = e.message;
       }
     }
   }
@@ -2121,7 +1957,6 @@ async function hdCallGemini() {
   throw new Error(lastError);
 }
 
-/* ── Mostrar notif dot al inicio ── */
 setTimeout(() => {
   const notif = document.getElementById('hd-notif');
   if (notif) notif.style.display = '';
